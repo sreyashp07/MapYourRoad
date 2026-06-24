@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useAppDispatch } from "@/store/hooks";
 import { setAppReady } from "@/store/slices/ui-slice";
+import { NetworkWeb } from "@/components/landing/network-web";
 
 const FIELDS = [
   "Machine Learning",
@@ -83,11 +84,15 @@ export function Preloader() {
           "linear-gradient(135deg, #3f4530 0%, #5c6444 45%, #7d8a4f 100%)",
       }}
     >
+      <div className="absolute inset-0 opacity-50">
+        <NetworkWeb />
+      </div>
+
       <div className="pointer-events-none absolute inset-0">
         {FIELDS.map((f, i) => (
           <span
             key={f}
-            className="pl-field font-display text-cream/15 absolute text-2xl font-bold"
+            className="pl-field font-display text-cream/20 absolute text-2xl font-bold"
             style={{
               left: `${((i * 31) % 86) + 5}%`,
               top: `${((i * 47) % 78) + 8}%`,

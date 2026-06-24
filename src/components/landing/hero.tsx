@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Button } from "@/components/ui/button";
 import { RoadmapMotif } from "./roadmap-motif";
+import { NetworkWeb } from "./network-web";
 
 export function Hero() {
   const root = useRef<HTMLElement>(null);
@@ -43,26 +44,29 @@ export function Hero() {
       ref={root}
       className="sb-grid relative flex min-h-screen items-center overflow-hidden px-4 pt-28 sm:px-6"
     >
-      {/* soft green aurora light */}
+      {/* animated network web */}
+      <NetworkWeb />
+
+      {/* vibrant living aurora */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
-          className="aurora top-[-15%] left-[-10%] h-[520px] w-[520px]"
+          className="aurora aurora-live top-[-12%] left-[-8%] h-[560px] w-[560px]"
           style={{
-            background: "radial-gradient(circle, #a8c64a, transparent 70%)",
+            background: "radial-gradient(circle, #b6d94f, transparent 68%)",
           }}
         />
         <div
-          className="aurora top-[5%] right-[-5%] h-[460px] w-[460px]"
+          className="aurora aurora-live top-[0%] right-[-6%] h-[520px] w-[520px]"
           style={{
-            background: "radial-gradient(circle, #7d8a4f, transparent 70%)",
-            animationDelay: "-4s",
+            background: "radial-gradient(circle, #7d8a4f, transparent 68%)",
+            animationDelay: "-3s",
           }}
         />
         <div
-          className="aurora bottom-[-20%] left-[30%] h-[480px] w-[480px]"
+          className="aurora aurora-live bottom-[-22%] left-[28%] h-[560px] w-[560px]"
           style={{
-            background: "radial-gradient(circle, #cfe3a8, transparent 70%)",
-            animationDelay: "-7s",
+            background: "radial-gradient(circle, #d6ef7e, transparent 68%)",
+            animationDelay: "-6s",
           }}
         />
       </div>
@@ -109,7 +113,7 @@ export function Hero() {
         </div>
 
         <div className="flex justify-center">
-          <div className="sb-border sb-shadow-lg bg-cream/70 rounded-3xl p-5 backdrop-blur">
+          <div className="sb-border sb-shadow-lg bg-cream/60 rounded-3xl p-5 backdrop-blur-md">
             <RoadmapMotif />
           </div>
         </div>

@@ -245,3 +245,24 @@ body {
   animation: aurora-drift 11s ease-in-out infinite;
   will-change: transform;
 }
+
+/* --- Vibrancy pass: stronger living aurora --- */
+.aurora {
+  opacity: 0.85;
+  filter: blur(70px);
+}
+
+@keyframes aurora-pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate3d(3%, -3%, 0) scale(1.15);
+  }
+}
+.aurora-live {
+  animation: aurora-pulse 9s ease-in-out infinite;
+}
