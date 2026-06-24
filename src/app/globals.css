@@ -290,3 +290,6 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+/* React Flow base styles — MUST come after the tailwindcss import (Tailwind v4) */
+@import "@xyflow/react/dist/base.css";
