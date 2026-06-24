@@ -52,7 +52,7 @@ export default async function DashboardPage() {
             size="lg"
             className="sb-border sb-shadow bg-olive text-cream hover:bg-olive-deep mt-6 rounded-xl"
           >
-            <Link href="/explore">Explore roadmaps</Link>
+            <Link href="/builder">Open the builder</Link>
           </Button>
         </div>
       </main>

@@ -293,3 +293,10 @@ html {
 
 /* React Flow base styles — MUST come after the tailwindcss import (Tailwind v4) */
 @import "@xyflow/react/dist/base.css";
+
+/* flowing dashed roadmap edges */
+@keyframes rf-dash {
+  to {
+    stroke-dashoffset: -11;
+  }
+}

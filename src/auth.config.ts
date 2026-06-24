@@ -1,8 +1,6 @@
 import type { NextAuthConfig } from "next-auth";
 
 export default {
-  // Providers live in auth.ts (Node runtime) — the Credentials
-  // authorize() uses Mongoose + bcrypt, which can't run on the edge.
   providers: [],
   pages: {
     signIn: "/login",
@@ -10,7 +8,9 @@ export default {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      const isProtected = nextUrl.pathname.startsWith("/dashboard");
+      const p = nextUrl.pathname;
+      const isProtected =
+        p.startsWith("/dashboard") || p.startsWith("/builder");
       if (isProtected) return isLoggedIn;
       return true;
     },
