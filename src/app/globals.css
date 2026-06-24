@@ -136,3 +136,22 @@ body {
     -apple-system,
     sans-serif;
 }
+
+/* MapYourRoad — fonts + dark "Arcade" canvas tokens */
+@theme {
+  --font-sans: var(--font-satoshi), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-clash), ui-sans-serif, system-ui, sans-serif;
+
+  --color-arcade-bg: #141414;
+  --color-arcade-bg-deep: #000000;
+  --color-arcade-fg: #fdf9f0;
+  --color-arcade-lime: #c7ff69;
+  --color-arcade-orange: #ff6d38;
+  --color-arcade-purple: #7a78ff;
+  --color-arcade-green: #00a652;
+}
+
+/* Ensure body uses Satoshi (overrides the earlier Geist rule). */
+body {
+  font-family: var(--font-satoshi), ui-sans-serif, system-ui, sans-serif;
+}
