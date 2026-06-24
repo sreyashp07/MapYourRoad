@@ -1,17 +1,21 @@
 import { Schema, model, models } from "mongoose";
 
-/**
- * Shares the `users` collection that Auth.js (@auth/mongodb-adapter)
- * will own in Phase 3. strict:false lets adapter-written fields coexist.
- */
 const UserSchema = new Schema(
   {
-    name: { type: String },
-    email: { type: String },
-    emailVerified: { type: Date, default: null },
-    image: { type: String },
+    name: { type: String, required: true, trim: true },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+      index: true,
+    },
+    // Hashed with bcrypt. select:false keeps it out of normal queries.
+    password: { type: String, required: true, select: false },
+    image: { type: String, default: "" },
   },
-  { timestamps: true, collection: "users", strict: false }
+  { timestamps: true, collection: "users" }
 );
 
 export const User = models.User || model("User", UserSchema);
