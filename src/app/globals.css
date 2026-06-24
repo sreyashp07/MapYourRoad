@@ -266,3 +266,16 @@ body {
 .aurora-live {
   animation: aurora-pulse 9s ease-in-out infinite;
 }
+
+/* testimonials marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+.animate-marquee {
+  animation: marquee 38s linear infinite;
+}
