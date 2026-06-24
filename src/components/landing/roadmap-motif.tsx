@@ -5,12 +5,12 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 const NODES = [
-  { x: 60, y: 70, c: "#7aa874" },
-  { x: 210, y: 46, c: "#e08a8a" },
-  { x: 330, y: 120, c: "#8487c9" },
-  { x: 120, y: 180, c: "#d9b44a" },
-  { x: 280, y: 230, c: "#7aa874" },
-  { x: 190, y: 310, c: "#8487c9" },
+  { x: 60, y: 70, c: "#5c6444" },
+  { x: 210, y: 46, c: "#c08552" },
+  { x: 330, y: 120, c: "#7d8a4f" },
+  { x: 120, y: 180, c: "#a8c64a" },
+  { x: 280, y: 230, c: "#5c6444" },
+  { x: 190, y: 310, c: "#c08552" },
 ];
 
 const PATHS = [
@@ -36,7 +36,7 @@ export function RoadmapMotif() {
 
       const tl = gsap.timeline({
         defaults: { ease: "power2.out" },
-        delay: 0.5,
+        delay: 0.6,
       });
       tl.to(".motif-path", {
         strokeDashoffset: 0,
@@ -70,7 +70,7 @@ export function RoadmapMotif() {
     <svg
       ref={ref}
       viewBox="0 0 390 360"
-      className="h-full w-full max-w-[460px]"
+      className="h-full w-full max-w-[440px]"
       fill="none"
     >
       {PATHS.map((d, i) => (
@@ -78,23 +78,23 @@ export function RoadmapMotif() {
           key={i}
           className="motif-path"
           d={d}
-          stroke="#c9c2b4"
+          stroke="#5c6444"
+          strokeOpacity="0.5"
           strokeWidth="2.5"
           strokeLinecap="round"
         />
       ))}
       {NODES.map((n, i) => (
         <g key={i} className="motif-node">
-          <circle cx={n.x} cy={n.y} r="17" fill="#ffffff" />
           <circle
             cx={n.x}
             cy={n.y}
             r="17"
-            fill="none"
-            stroke={n.c}
-            strokeWidth="3"
+            fill="#f4f1e8"
+            stroke="#20231a"
+            strokeWidth="2"
           />
-          <circle cx={n.x} cy={n.y} r="5" fill={n.c} />
+          <circle cx={n.x} cy={n.y} r="6" fill={n.c} />
         </g>
       ))}
     </svg>

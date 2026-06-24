@@ -39,15 +39,15 @@ export function Hero() {
     >
       <div className="relative mx-auto grid w-full max-w-6xl items-center gap-12 md:grid-cols-2">
         <div>
-          <span className="hero-eyebrow sb-border inline-block rounded-full bg-cream-deep px-4 py-1.5 text-sm font-medium text-ink">
+          <span className="hero-eyebrow sb-border bg-cream-deep text-ink inline-block rounded-full px-4 py-1.5 text-sm font-medium">
             Interactive learning roadmaps
           </span>
-          <h1 className="mt-6 font-display text-5xl font-bold leading-[0.92] tracking-tight text-ink sm:text-6xl lg:text-7xl">
+          <h1 className="font-display text-ink mt-6 text-5xl leading-[0.92] font-bold tracking-tight sm:text-6xl lg:text-7xl">
             <span className="block overflow-hidden">
               <span className="hero-line block">Map every</span>
             </span>
             <span className="block overflow-hidden">
-              <span className="hero-line block text-olive">step of your</span>
+              <span className="hero-line text-olive block">step of your</span>
             </span>
             <span className="block overflow-hidden">
               <span className="hero-line block">learning road.</span>
@@ -55,11 +55,11 @@ export function Hero() {
           </h1>
 
           {/* running green light beam */}
-          <div className="relative mt-7 h-[6px] w-44 overflow-hidden rounded-full bg-cream-deep">
+          <div className="bg-cream-deep relative mt-7 h-[6px] w-44 overflow-hidden rounded-full">
             <div className="light-beam absolute inset-y-0 w-1/2" />
           </div>
 
-          <p className="hero-sub mt-7 max-w-md text-lg text-ink/65">
+          <p className="hero-sub text-ink/65 mt-7 max-w-md text-lg">
             Turn any subject into a living map of nodes and connections. Build
             it, track it, share it.
           </p>
@@ -67,7 +67,7 @@ export function Hero() {
             <Button
               asChild
               size="lg"
-              className="hero-cta sb-border sb-shadow rounded-xl bg-olive text-cream hover:bg-olive-deep"
+              className="hero-cta sb-border sb-shadow bg-olive text-cream hover:bg-olive-deep rounded-xl"
             >
               <Link href="/register">Start building</Link>
             </Button>
@@ -75,7 +75,7 @@ export function Hero() {
               asChild
               size="lg"
               variant="outline"
-              className="hero-cta sb-border rounded-xl bg-cream"
+              className="hero-cta sb-border bg-cream rounded-xl"
             >
               <Link href="/login">Sign in</Link>
             </Button>
@@ -83,7 +83,7 @@ export function Hero() {
         </div>
 
         <div className="flex justify-center">
-          <div className="sb-border sb-shadow-lg rounded-3xl bg-cream p-5">
+          <div className="sb-border sb-shadow-lg bg-cream rounded-3xl p-5">
             <RoadmapMotif />
           </div>
         </div>
