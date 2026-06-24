@@ -71,7 +71,6 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* How it works */}
         <div className="mx-auto mt-20 max-w-6xl">
           <h2 className="font-display text-ink text-3xl font-bold tracking-tight sm:text-4xl">
             How it works
@@ -94,7 +93,6 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Principles */}
         <div className="mx-auto mt-20 max-w-6xl">
           <h2 className="font-display text-ink text-3xl font-bold tracking-tight sm:text-4xl">
             What we believe

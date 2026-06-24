@@ -1,3 +1,6 @@
+import { Navbar } from "@/components/landing/navbar";
+import { Footer } from "@/components/landing/footer";
+
 export const metadata = { title: "Explore" };
 
 const SAMPLES = [
