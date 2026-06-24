@@ -16,16 +16,22 @@ export function Hero() {
         defaults: { ease: "power3.out" },
         delay: 0.2,
       });
-      tl.from(".hero-eyebrow", { y: 18, opacity: 0, duration: 0.6 })
+      tl.from(".hero-eyebrow", { y: 16, autoAlpha: 0, duration: 0.6 })
         .from(
           ".hero-line",
-          { yPercent: 120, opacity: 0, duration: 0.9, stagger: 0.12 },
+          {
+            y: 40,
+            autoAlpha: 0,
+            filter: "blur(12px)",
+            duration: 1,
+            stagger: 0.14,
+          },
           "-=0.2"
         )
-        .from(".hero-sub", { y: 20, opacity: 0, duration: 0.7 }, "-=0.4")
+        .from(".hero-sub", { y: 18, autoAlpha: 0, duration: 0.7 }, "-=0.5")
         .from(
           ".hero-cta",
-          { y: 16, opacity: 0, duration: 0.6, stagger: 0.1 },
+          { y: 14, autoAlpha: 0, duration: 0.6, stagger: 0.1 },
           "-=0.4"
         );
     },
@@ -37,37 +43,57 @@ export function Hero() {
       ref={root}
       className="sb-grid relative flex min-h-screen items-center overflow-hidden px-4 pt-28 sm:px-6"
     >
+      {/* soft green aurora light */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="aurora top-[-15%] left-[-10%] h-[520px] w-[520px]"
+          style={{
+            background: "radial-gradient(circle, #a8c64a, transparent 70%)",
+          }}
+        />
+        <div
+          className="aurora top-[5%] right-[-5%] h-[460px] w-[460px]"
+          style={{
+            background: "radial-gradient(circle, #7d8a4f, transparent 70%)",
+            animationDelay: "-4s",
+          }}
+        />
+        <div
+          className="aurora bottom-[-20%] left-[30%] h-[480px] w-[480px]"
+          style={{
+            background: "radial-gradient(circle, #cfe3a8, transparent 70%)",
+            animationDelay: "-7s",
+          }}
+        />
+      </div>
+
       <div className="relative mx-auto grid w-full max-w-6xl items-center gap-12 md:grid-cols-2">
         <div>
-          <span className="hero-eyebrow sb-border bg-cream-deep text-ink inline-block rounded-full px-4 py-1.5 text-sm font-medium">
+          <span className="hero-eyebrow sb-border bg-cream/80 text-ink inline-block rounded-full px-4 py-1.5 text-sm font-medium backdrop-blur">
             Interactive learning roadmaps
           </span>
-          <h1 className="font-display text-ink mt-6 text-5xl leading-[0.92] font-bold tracking-tight sm:text-6xl lg:text-7xl">
-            <span className="block overflow-hidden">
-              <span className="hero-line block">Map every</span>
+          <h1 className="font-display text-ink mt-6 text-5xl leading-[1.05] font-bold tracking-tight sm:text-6xl lg:text-7xl">
+            <span className="hero-line block pb-1">Map every</span>
+            <span className="hero-line text-olive block pb-1">
+              step of your
             </span>
-            <span className="block overflow-hidden">
-              <span className="hero-line text-olive block">step of your</span>
-            </span>
-            <span className="block overflow-hidden">
-              <span className="hero-line block">learning road.</span>
-            </span>
+            <span className="hero-line block pb-1">learning road.</span>
           </h1>
 
-          {/* running green light beam */}
           <div className="bg-cream-deep relative mt-7 h-[6px] w-44 overflow-hidden rounded-full">
             <div className="light-beam absolute inset-y-0 w-1/2" />
           </div>
 
-          <p className="hero-sub text-ink/65 mt-7 max-w-md text-lg">
-            Turn any subject into a living map of nodes and connections. Build
-            it, track it, share it.
+          <p className="hero-sub text-ink/70 mt-7 max-w-md text-lg">
+            Turn any subject into a living map of nodes and connections — from
+            DSA to machine learning, system design, or research. Build it, track
+            it, share it.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Button
               asChild
               size="lg"
-              className="hero-cta sb-border sb-shadow bg-olive text-cream hover:bg-olive-deep rounded-xl"
+              className="hero-cta sb-border sb-shadow bg-olive text-cream hover:bg-olive-deep rounded-2xl"
             >
               <Link href="/register">Start building</Link>
             </Button>
@@ -75,7 +101,7 @@ export function Hero() {
               asChild
               size="lg"
               variant="outline"
-              className="hero-cta sb-border bg-cream rounded-xl"
+              className="hero-cta sb-border bg-cream/80 rounded-2xl backdrop-blur"
             >
               <Link href="/login">Sign in</Link>
             </Button>
@@ -83,7 +109,7 @@ export function Hero() {
         </div>
 
         <div className="flex justify-center">
-          <div className="sb-border sb-shadow-lg bg-cream rounded-3xl p-5">
+          <div className="sb-border sb-shadow-lg bg-cream/70 rounded-3xl p-5 backdrop-blur">
             <RoadmapMotif />
           </div>
         </div>

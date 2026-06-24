@@ -7,16 +7,18 @@ import { useAppDispatch } from "@/store/hooks";
 import { setAppReady } from "@/store/slices/ui-slice";
 
 const FIELDS = [
-  "Arrays",
-  "Recursion",
-  "Graphs",
-  "DP",
-  "Trees",
-  "Hashing",
-  "Sorting",
-  "Greedy",
-  "Strings",
-  "Heaps",
+  "Machine Learning",
+  "Deep Learning",
+  "Backend",
+  "Frontend",
+  "DSA",
+  "System Design",
+  "Research",
+  "DevOps",
+  "Databases",
+  "Security",
+  "Cloud",
+  "Data Science",
 ];
 
 export function Preloader() {
@@ -35,10 +37,9 @@ export function Preloader() {
         },
       });
 
-      // floating roadmap field labels drifting up in the background
       gsap.to(".pl-field", {
         y: -26,
-        opacity: 0.9,
+        opacity: 0.85,
         duration: 2.4,
         ease: "sine.inOut",
         yoyo: true,
@@ -82,15 +83,14 @@ export function Preloader() {
           "linear-gradient(135deg, #3f4530 0%, #5c6444 45%, #7d8a4f 100%)",
       }}
     >
-      {/* floating field labels */}
       <div className="pointer-events-none absolute inset-0">
         {FIELDS.map((f, i) => (
           <span
             key={f}
             className="pl-field font-display text-cream/15 absolute text-2xl font-bold"
             style={{
-              left: `${((i * 37) % 90) + 4}%`,
-              top: `${((i * 53) % 80) + 8}%`,
+              left: `${((i * 31) % 86) + 5}%`,
+              top: `${((i * 47) % 78) + 8}%`,
             }}
           >
             {f}
@@ -103,19 +103,16 @@ export function Preloader() {
           MapYourRoad
         </h1>
 
-        {/* track + car */}
         <div className="bg-cream/20 relative mt-12 h-2 w-full rounded-full">
           <div
             className="pl-fill absolute top-0 left-0 h-full w-0 rounded-full"
             style={{ background: "linear-gradient(90deg,#a8c64a,#d6ef7e)" }}
           />
-          {/* dashed road centerline */}
           <div className="absolute inset-0 flex items-center justify-around opacity-40">
             {Array.from({ length: 22 }).map((_, i) => (
               <span key={i} className="bg-cream h-[2px] w-3" />
             ))}
           </div>
-          {/* the car */}
           <div className="pl-car absolute -top-4 left-0 text-3xl">🏎️</div>
         </div>
 

@@ -207,3 +207,41 @@ body {
   );
   animation: beam-run 3.4s ease-in-out infinite;
 }
+
+/* --- Refinement pass: softer brutalism + vibrant aurora --- */
+
+/* lighter, softer primitives (override the harder ones) */
+.sb-border {
+  border: 1.5px solid rgba(32, 35, 26, 0.85);
+}
+.sb-shadow {
+  box-shadow: 3px 3px 0 0 rgba(32, 35, 26, 0.9);
+}
+.sb-shadow-lg {
+  box-shadow: 5px 5px 0 0 rgba(32, 35, 26, 0.9);
+}
+.sb-grid {
+  background-image:
+    linear-gradient(to right, rgba(32, 35, 26, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(32, 35, 26, 0.03) 1px, transparent 1px);
+  background-size: 52px 52px;
+}
+
+/* soft green aurora behind the hero */
+@keyframes aurora-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, -3%, 0) scale(1.12);
+  }
+}
+.aurora {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.55;
+  animation: aurora-drift 11s ease-in-out infinite;
+  will-change: transform;
+}
