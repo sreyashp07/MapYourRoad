@@ -7,20 +7,79 @@ import { useAppDispatch } from "@/store/hooks";
 import { setAppReady } from "@/store/slices/ui-slice";
 import { NetworkWeb } from "@/components/landing/network-web";
 
-const FIELDS = [
-  "Machine Learning",
-  "Deep Learning",
-  "Backend",
-  "Frontend",
-  "DSA",
-  "System Design",
-  "Research",
-  "DevOps",
-  "Databases",
-  "Security",
-  "Cloud",
-  "Data Science",
+type Shape = "circle" | "square" | "diamond" | "triangle";
+
+interface Field {
+  label: string;
+  left: number;
+  top: number;
+  shape: Shape;
+  color: string;
+}
+
+// Positioned only around the edges — center stays clear for the title + bar.
+const FIELDS: Field[] = [
+  {
+    label: "Machine Learning",
+    left: 7,
+    top: 11,
+    shape: "circle",
+    color: "#a8c64a",
+  },
+  { label: "Backend", left: 40, top: 8, shape: "square", color: "#d6ef7e" },
+  {
+    label: "Deep Learning",
+    left: 73,
+    top: 12,
+    shape: "diamond",
+    color: "#c08552",
+  },
+  { label: "Research", left: 5, top: 40, shape: "triangle", color: "#d6ef7e" },
+  { label: "DevOps", left: 87, top: 38, shape: "circle", color: "#a8c64a" },
+  { label: "Frontend", left: 8, top: 74, shape: "square", color: "#c08552" },
+  {
+    label: "System Design",
+    left: 62,
+    top: 82,
+    shape: "diamond",
+    color: "#a8c64a",
+  },
+  { label: "DSA", left: 82, top: 72, shape: "circle", color: "#d6ef7e" },
+  { label: "Security", left: 6, top: 90, shape: "diamond", color: "#a8c64a" },
+  { label: "Cloud", left: 44, top: 92, shape: "triangle", color: "#c08552" },
+  { label: "Databases", left: 28, top: 86, shape: "circle", color: "#d6ef7e" },
+  {
+    label: "Data Science",
+    left: 88,
+    top: 88,
+    shape: "square",
+    color: "#a8c64a",
+  },
 ];
+
+function ShapeIcon({ shape, color }: { shape: Shape; color: string }) {
+  if (shape === "triangle") {
+    return (
+      <span
+        style={{
+          width: 0,
+          height: 0,
+          borderLeft: "7px solid transparent",
+          borderRight: "7px solid transparent",
+          borderBottom: `12px solid ${color}`,
+        }}
+      />
+    );
+  }
+  const base = "inline-block h-3 w-3";
+  const cls =
+    shape === "circle"
+      ? `${base} rounded-full`
+      : shape === "diamond"
+        ? `${base} rotate-45 rounded-[2px]`
+        : `${base} rounded-[3px]`;
+  return <span className={cls} style={{ backgroundColor: color }} />;
+}
 
 export function Preloader() {
   const root = useRef<HTMLDivElement>(null);
@@ -38,14 +97,25 @@ export function Preloader() {
         },
       });
 
+      // gentle, smooth drift — shape + label move together
+      gsap.fromTo(
+        ".pl-field",
+        { autoAlpha: 0, y: 10 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 1.1,
+          ease: "power2.out",
+          stagger: { each: 0.12, from: "random" },
+        }
+      );
       gsap.to(".pl-field", {
-        y: -26,
-        opacity: 0.85,
-        duration: 2.4,
+        y: "-=16",
+        duration: 3,
         ease: "sine.inOut",
         yoyo: true,
         repeat: -1,
-        stagger: { each: 0.18, from: "random" },
+        stagger: { each: 0.2, from: "random" },
       });
 
       tl.to(counter, {
@@ -88,21 +158,23 @@ export function Preloader() {
         <NetworkWeb />
       </div>
 
+      {/* floating topics — shape + whitish label, pinned to the edges */}
       <div className="pointer-events-none absolute inset-0">
-        {FIELDS.map((f, i) => (
-          <span
-            key={f}
-            className="pl-field font-display text-cream/20 absolute text-2xl font-bold"
-            style={{
-              left: `${((i * 31) % 86) + 5}%`,
-              top: `${((i * 47) % 78) + 8}%`,
-            }}
+        {FIELDS.map((f) => (
+          <div
+            key={f.label}
+            className="pl-field absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-2"
+            style={{ left: `${f.left}%`, top: `${f.top}%` }}
           >
-            {f}
-          </span>
+            <ShapeIcon shape={f.shape} color={f.color} />
+            <span className="font-display text-cream/75 text-base font-semibold whitespace-nowrap sm:text-lg">
+              {f.label}
+            </span>
+          </div>
         ))}
       </div>
 
+      {/* main area — kept clear */}
       <div className="relative w-[min(560px,86vw)]">
         <h1 className="font-display text-cream text-center text-5xl font-bold tracking-tight sm:text-7xl">
           MapYourRoad
