@@ -285,3 +285,8 @@ body {
   animation: marquee 38s linear infinite;
   width: max-content;
 }
+
+/* smooth in-page anchor scrolling */
+html {
+  scroll-behavior: smooth;
+}

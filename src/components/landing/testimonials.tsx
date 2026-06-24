@@ -56,7 +56,7 @@ export function Testimonials() {
   const row = [...TESTIMONIALS, ...TESTIMONIALS];
 
   return (
-    <section className="overflow-hidden py-28">
+    <section id="testimonials" className="scroll-mt-24 overflow-hidden py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <h2 className="font-display text-ink max-w-xl text-4xl font-bold tracking-tight sm:text-5xl">
           Loved by curious learners.

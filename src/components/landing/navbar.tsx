@@ -11,6 +11,9 @@ export function Navbar() {
           <Link href="/explore" className="hover:text-ink">
             Explore
           </Link>
+          <Link href="/#testimonials" className="hover:text-ink">
+            Testimonials
+          </Link>
           <Link href="/about" className="hover:text-ink">
             About
           </Link>
