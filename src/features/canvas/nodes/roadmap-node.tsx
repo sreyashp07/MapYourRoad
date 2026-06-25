@@ -1,7 +1,7 @@
 "use client";
 
-import { memo } from "react";
-import { Handle, Position, type NodeProps } from "@xyflow/react";
+import { memo, useState, useEffect, useRef } from "react";
+import { Handle, Position, useReactFlow, type NodeProps } from "@xyflow/react";
 import type { RoadmapNode } from "@/types/roadmap";
 
 const STATUS_RING: Record<string, string> = {
@@ -9,15 +9,30 @@ const STATUS_RING: Record<string, string> = {
   "in-progress": "#c08552",
   done: "#a8c64a",
 };
-
 const STATUS_LABEL: Record<string, string> = {
   todo: "To do",
   "in-progress": "In progress",
   done: "Done",
 };
 
-function RoadmapNodeComponent({ data, selected }: NodeProps<RoadmapNode>) {
+function RoadmapNodeComponent({ id, data, selected }: NodeProps<RoadmapNode>) {
   const ring = STATUS_RING[data.status] ?? STATUS_RING.todo;
+  const { updateNodeData } = useReactFlow();
+  const [editing, setEditing] = useState(false);
+  const [val, setVal] = useState(data.label);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => setVal(data.label), [data.label]);
+  useEffect(() => {
+    if (editing) inputRef.current?.select();
+  }, [editing]);
+
+  const commit = () => {
+    setEditing(false);
+    const v = val.trim();
+    if (v && v !== data.label) updateNodeData(id, { label: v });
+    else setVal(data.label);
+  };
 
   return (
     <div
@@ -42,9 +57,30 @@ function RoadmapNodeComponent({ data, selected }: NodeProps<RoadmapNode>) {
           className="h-2.5 w-2.5 shrink-0 rounded-full"
           style={{ backgroundColor: ring }}
         />
-        <p className="font-display text-base leading-tight font-semibold text-[#fdf9f0]">
-          {data.label}
-        </p>
+        {editing ? (
+          <input
+            ref={inputRef}
+            value={val}
+            onChange={(e) => setVal(e.target.value)}
+            onBlur={commit}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") commit();
+              if (e.key === "Escape") {
+                setVal(data.label);
+                setEditing(false);
+              }
+            }}
+            className="nodrag font-display w-full rounded border border-[#a8c64a] bg-[#141414] px-1.5 py-0.5 text-base font-semibold text-[#fdf9f0] outline-none"
+          />
+        ) : (
+          <p
+            onDoubleClick={() => setEditing(true)}
+            className="font-display text-base leading-tight font-semibold text-[#fdf9f0]"
+            title="Double-click to rename"
+          >
+            {data.label}
+          </p>
+        )}
       </div>
 
       {data.description ? (

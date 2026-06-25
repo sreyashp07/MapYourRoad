@@ -1,19 +1,25 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useMemo, useRef, useState, useEffect } from "react";
 import {
   ReactFlow,
   Background,
   Controls,
   MiniMap,
   BackgroundVariant,
+  ReactFlowProvider,
   addEdge,
   useNodesState,
   useEdgesState,
+  useReactFlow,
   type Connection,
+  type Node,
 } from "@xyflow/react";
 import { RoadmapNode } from "./nodes/roadmap-node";
 import { RoadmapEdge } from "./edges/roadmap-edge";
+import { SuggestionPanel } from "./suggestion-panel";
+import { NodeDetailPanel } from "./node-detail-panel";
+import { getTemplate, buildStarterGraph, nextId } from "./topic-library";
 import type {
   RoadmapNode as RNode,
   RoadmapEdge as REdge,
@@ -22,58 +28,20 @@ import type {
 const nodeTypes = { roadmapNode: RoadmapNode };
 const edgeTypes = { roadmapEdge: RoadmapEdge };
 
-const initialNodes: RNode[] = [
-  {
-    id: "n1",
-    type: "roadmapNode",
-    position: { x: 0, y: 0 },
-    data: {
-      label: "HTML & CSS",
-      status: "done",
-      description: "Structure and styling fundamentals.",
-    },
-  },
-  {
-    id: "n2",
-    type: "roadmapNode",
-    position: { x: -120, y: 160 },
-    data: {
-      label: "JavaScript",
-      status: "in-progress",
-      description: "The language of the web.",
-    },
-  },
-  {
-    id: "n3",
-    type: "roadmapNode",
-    position: { x: 160, y: 160 },
-    data: {
-      label: "Git & GitHub",
-      status: "todo",
-      description: "Version control basics.",
-    },
-  },
-  {
-    id: "n4",
-    type: "roadmapNode",
-    position: { x: -120, y: 330 },
-    data: {
-      label: "React",
-      status: "todo",
-      description: "Component-based UI library.",
-    },
-  },
-];
+function CanvasInner({ title }: { title: string }) {
+  const { starters, suggestions } = useMemo(() => getTemplate(title), [title]);
+  const seed = useMemo(() => buildStarterGraph(starters), [starters]);
 
-const initialEdges: REdge[] = [
-  { id: "e1-2", source: "n1", target: "n2", type: "roadmapEdge" },
-  { id: "e1-3", source: "n1", target: "n3", type: "roadmapEdge" },
-  { id: "e2-4", source: "n2", target: "n4", type: "roadmapEdge" },
-];
+  const [nodes, setNodes, onNodesChange] = useNodesState<RNode>(seed.nodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState<REdge>(seed.edges);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const { screenToFlowPosition } = useReactFlow();
 
-export function RoadmapCanvas() {
-  const [nodes, , onNodesChange] = useNodesState<RNode>(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState<REdge>(initialEdges);
+  const selectedNode = useMemo(
+    () => nodes.find((n) => n.id === selectedId) ?? null,
+    [nodes, selectedId]
+  );
 
   const onConnect = useCallback(
     (params: Connection) =>
@@ -81,14 +49,102 @@ export function RoadmapCanvas() {
     [setEdges]
   );
 
+  // Add a topic. If a node is selected, auto-place below it and connect.
+  const addTopic = useCallback(
+    (label: string, position?: { x: number; y: number }) => {
+      const id = nextId();
+      const anchor = nodes.find((n) => n.id === selectedId);
+      const pos =
+        position ??
+        (anchor
+          ? { x: anchor.position.x, y: anchor.position.y + 170 }
+          : { x: Math.random() * 200, y: Math.random() * 200 });
+
+      const newNode: RNode = {
+        id,
+        type: "roadmapNode",
+        position: pos,
+        data: { label, status: "todo" },
+      };
+      setNodes((nds) => [...nds, newNode]);
+
+      if (anchor && !position) {
+        setEdges((eds) =>
+          addEdge(
+            {
+              source: anchor.id,
+              target: id,
+              type: "roadmapEdge",
+            } as Connection,
+            eds
+          )
+        );
+      }
+    },
+    [nodes, selectedId, setNodes, setEdges]
+  );
+
+  const onDrop = useCallback(
+    (event: React.DragEvent) => {
+      event.preventDefault();
+      const label = event.dataTransfer.getData("application/topic");
+      if (!label) return;
+      const position = screenToFlowPosition({
+        x: event.clientX,
+        y: event.clientY,
+      });
+      addTopic(label, position);
+    },
+    [screenToFlowPosition, addTopic]
+  );
+
+  const onDragOver = useCallback((event: React.DragEvent) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "move";
+  }, []);
+
+  const updateNodeData = useCallback(
+    (id: string, data: Partial<RNode["data"]>) => {
+      setNodes((nds) =>
+        nds.map((n) =>
+          n.id === id ? { ...n, data: { ...n.data, ...data } } : n
+        )
+      );
+    },
+    [setNodes]
+  );
+
+  const deleteNode = useCallback(
+    (id: string) => {
+      setNodes((nds) => nds.filter((n) => n.id !== id));
+      setEdges((eds) => eds.filter((e) => e.source !== id && e.target !== id));
+      setSelectedId(null);
+    },
+    [setNodes, setEdges]
+  );
+
   return (
-    <div className="h-full w-full" style={{ background: "#141414" }}>
+    <div
+      ref={wrapperRef}
+      className="relative h-full w-full"
+      style={{ background: "#141414" }}
+      onDrop={onDrop}
+      onDragOver={onDragOver}
+    >
+      <SuggestionPanel
+        suggestions={suggestions}
+        onAdd={(label) => addTopic(label)}
+        onDragStartTopic={() => {}}
+      />
+
       <ReactFlow
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        onNodeClick={(_, node: Node) => setSelectedId(node.id)}
+        onPaneClick={() => setSelectedId(null)}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         fitView
@@ -113,6 +169,21 @@ export function RoadmapCanvas() {
           className="!rounded-xl !border-2 !border-[#3a3f2e] !bg-[#1c1f17]"
         />
       </ReactFlow>
+
+      <NodeDetailPanel
+        node={selectedNode}
+        onClose={() => setSelectedId(null)}
+        onUpdate={updateNodeData}
+        onDelete={deleteNode}
+      />
     </div>
+  );
+}
+
+export function RoadmapCanvas({ title = "Untitled" }: { title?: string }) {
+  return (
+    <ReactFlowProvider>
+      <CanvasInner title={title} />
+    </ReactFlowProvider>
   );
 }

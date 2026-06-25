@@ -16,6 +16,6 @@ const RoadmapCanvas = dynamic(
   }
 );
 
-export function BuilderClient() {
-  return <RoadmapCanvas />;
+export function BuilderClient({ title }: { title: string }) {
+  return <RoadmapCanvas title={title} />;
 }

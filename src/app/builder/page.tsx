@@ -4,9 +4,15 @@ import { BuilderClient } from "./builder-client";
 
 export const metadata = { title: "Builder" };
 
-export default async function BuilderPage() {
+export default async function BuilderPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ title?: string }>;
+}) {
   const session = await auth();
   const name = session?.user?.name ?? "you";
+  const { title } = await searchParams;
+  const roadmapTitle = title?.trim() || "Untitled roadmap";
 
   return (
     <div className="flex h-screen flex-col bg-[#141414]">
@@ -20,14 +26,14 @@ export default async function BuilderPage() {
           </Link>
           <span className="text-[#fdf9f0]/30">/</span>
           <span className="font-display text-sm font-semibold text-[#fdf9f0]">
-            Untitled roadmap
+            {roadmapTitle}
           </span>
         </div>
         <span className="text-xs text-[#fdf9f0]/40">Building as {name}</span>
       </header>
 
       <div className="min-h-0 flex-1">
-        <BuilderClient />
+        <BuilderClient title={roadmapTitle} />
       </div>
     </div>
   );
