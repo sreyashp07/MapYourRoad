@@ -1,18 +1,35 @@
 import Link from "next/link";
 import { auth } from "@/auth";
+import { getRoadmap } from "@/features/roadmaps/actions";
 import { BuilderClient } from "./builder-client";
+import type {
+  RoadmapNode as RNode,
+  RoadmapEdge as REdge,
+} from "@/types/roadmap";
 
 export const metadata = { title: "Builder" };
 
 export default async function BuilderPage({
   searchParams,
 }: {
-  searchParams: Promise<{ title?: string }>;
+  searchParams: Promise<{ title?: string; id?: string }>;
 }) {
   const session = await auth();
   const name = session?.user?.name ?? "you";
-  const { title } = await searchParams;
-  const roadmapTitle = title?.trim() || "Untitled roadmap";
+  const { title, id } = await searchParams;
+
+  let roadmapTitle = title?.trim() || "Untitled roadmap";
+  let initialNodes: RNode[] | undefined;
+  let initialEdges: REdge[] | undefined;
+
+  if (id) {
+    const existing = await getRoadmap(id);
+    if (existing) {
+      roadmapTitle = existing.title;
+      initialNodes = existing.nodes as RNode[];
+      initialEdges = existing.edges as REdge[];
+    }
+  }
 
   return (
     <div className="flex h-screen flex-col bg-[#141414]">
@@ -33,7 +50,12 @@ export default async function BuilderPage({
       </header>
 
       <div className="min-h-0 flex-1">
-        <BuilderClient title={roadmapTitle} />
+        <BuilderClient
+          title={roadmapTitle}
+          roadmapId={id}
+          initialNodes={initialNodes}
+          initialEdges={initialEdges}
+        />
       </div>
     </div>
   );

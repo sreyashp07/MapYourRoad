@@ -29,15 +29,43 @@ import type {
 const nodeTypes = { roadmapNode: RoadmapNode };
 const edgeTypes = { roadmapEdge: RoadmapEdge };
 
-function CanvasInner({ title }: { title: string }) {
-  const { starters, suggestions } = useMemo(() => getTemplate(title), [title]);
-  const seed = useMemo(() => buildStarterGraph(starters), [starters]);
+export interface GraphSnapshot {
+  nodes: RNode[];
+  edges: REdge[];
+}
+
+interface CanvasProps {
+  title: string;
+  initialNodes?: RNode[];
+  initialEdges?: REdge[];
+  graphRef?: React.MutableRefObject<GraphSnapshot | null>;
+}
+
+function CanvasInner({
+  title,
+  initialNodes,
+  initialEdges,
+  graphRef,
+}: CanvasProps) {
+  const { suggestions } = useMemo(() => getTemplate(title), [title]);
+
+  const seed = useMemo(() => {
+    if (initialNodes && initialNodes.length) {
+      return { nodes: initialNodes, edges: initialEdges ?? [] };
+    }
+    const { starters } = getTemplate(title);
+    return buildStarterGraph(starters);
+  }, [title, initialNodes, initialEdges]);
 
   const [nodes, setNodes, onNodesChange] = useNodesState<RNode>(seed.nodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState<REdge>(seed.edges);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const wrapperRef = useRef<HTMLDivElement>(null);
   const { screenToFlowPosition } = useReactFlow();
+
+  // keep the page-level ref in sync with the live graph so Save can read it
+  useEffect(() => {
+    if (graphRef) graphRef.current = { nodes, edges };
+  }, [nodes, edges, graphRef]);
 
   const selectedNode = useMemo(
     () => nodes.find((n) => n.id === selectedId) ?? null,
@@ -50,7 +78,6 @@ function CanvasInner({ title }: { title: string }) {
     [setEdges]
   );
 
-  // Add a topic. If a node is selected, auto-place below it and connect.
   const addTopic = useCallback(
     (label: string, position?: { x: number; y: number }) => {
       const id = nextId();
@@ -126,7 +153,6 @@ function CanvasInner({ title }: { title: string }) {
 
   return (
     <div
-      ref={wrapperRef}
       className="relative h-full w-full"
       style={{ background: "#141414" }}
       onDrop={onDrop}
@@ -183,10 +209,10 @@ function CanvasInner({ title }: { title: string }) {
   );
 }
 
-export function RoadmapCanvas({ title = "Untitled" }: { title?: string }) {
+export function RoadmapCanvas(props: CanvasProps) {
   return (
     <ReactFlowProvider>
-      <CanvasInner title={title} />
+      <CanvasInner {...props} />
     </ReactFlowProvider>
   );
 }
