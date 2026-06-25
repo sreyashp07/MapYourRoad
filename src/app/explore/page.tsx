@@ -1,29 +1,347 @@
 import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
+import { ExploreGrid, type ExploreItem } from "./explore-client";
 
 export const metadata = { title: "Explore" };
 
-const SAMPLES = [
-  { title: "Frontend Engineering", nodes: 28, tag: "Web", c: "#5c6444" },
-  { title: "Backend Engineering", nodes: 31, tag: "Web", c: "#7d8a4f" },
-  { title: "Machine Learning", nodes: 34, tag: "AI", c: "#c08552" },
-  { title: "Deep Learning", nodes: 30, tag: "AI", c: "#5c6444" },
-  { title: "DSA Mastery", nodes: 42, tag: "CS", c: "#7d8a4f" },
-  { title: "System Design", nodes: 21, tag: "Backend", c: "#a8c64a" },
-  { title: "DevOps & Cloud", nodes: 25, tag: "Ops", c: "#c08552" },
-  { title: "Data Science", nodes: 33, tag: "AI", c: "#7d8a4f" },
-  { title: "Cybersecurity", nodes: 27, tag: "Security", c: "#5c6444" },
-  { title: "Mobile (React Native)", nodes: 19, tag: "Mobile", c: "#a8c64a" },
-  { title: "Databases & SQL", nodes: 22, tag: "Data", c: "#c08552" },
-  { title: "Blockchain Dev", nodes: 24, tag: "Web3", c: "#7d8a4f" },
-  { title: "UI/UX Design", nodes: 18, tag: "Design", c: "#5c6444" },
-  { title: "Game Development", nodes: 26, tag: "Games", c: "#a8c64a" },
-  { title: "MLOps", nodes: 20, tag: "AI", c: "#c08552" },
-  { title: "Research Methods", nodes: 23, tag: "Research", c: "#7d8a4f" },
-  { title: "Cloud Architecture", nodes: 29, tag: "Ops", c: "#5c6444" },
-  { title: "Data Engineering", nodes: 27, tag: "Data", c: "#7d8a4f" },
-  { title: "Product Management", nodes: 17, tag: "Product", c: "#c08552" },
-  { title: "Computer Networks", nodes: 24, tag: "CS", c: "#a8c64a" },
+const ITEMS: ExploreItem[] = [
+  {
+    title: "Frontend Engineering",
+    tag: "Web",
+    c: "#5c6444",
+    topics: [
+      "HTML & CSS",
+      "JavaScript",
+      "Git & GitHub",
+      "TypeScript",
+      "React",
+      "State Management",
+      "Next.js",
+      "Tailwind CSS",
+      "APIs & Fetch",
+      "Testing",
+      "Accessibility",
+      "Performance",
+    ],
+  },
+  {
+    title: "Backend Engineering",
+    tag: "Web",
+    c: "#7d8a4f",
+    topics: [
+      "HTTP & REST",
+      "Node.js",
+      "Express",
+      "Databases",
+      "Authentication",
+      "ORMs",
+      "Caching",
+      "Background Jobs",
+      "API Design",
+      "Error Handling",
+      "Logging",
+      "Deployment",
+    ],
+  },
+  {
+    title: "Machine Learning",
+    tag: "AI",
+    c: "#c08552",
+    topics: [
+      "Linear Algebra",
+      "Statistics",
+      "Python & NumPy",
+      "Pandas",
+      "Linear Regression",
+      "Logistic Regression",
+      "Decision Trees",
+      "Gradient Descent",
+      "Feature Engineering",
+      "Model Evaluation",
+      "Clustering",
+      "Deployment",
+    ],
+  },
+  {
+    title: "Deep Learning",
+    tag: "AI",
+    c: "#5c6444",
+    topics: [
+      "Perceptrons",
+      "Backpropagation",
+      "CNNs",
+      "RNNs & LSTMs",
+      "Attention",
+      "Transformers",
+      "Regularization",
+      "Fine-tuning",
+      "PyTorch",
+      "GPUs & Training",
+    ],
+  },
+  {
+    title: "DSA Mastery",
+    tag: "CS",
+    c: "#7d8a4f",
+    topics: [
+      "Arrays",
+      "Strings",
+      "Hashing",
+      "Recursion",
+      "Linked Lists",
+      "Stacks & Queues",
+      "Binary Search",
+      "Trees",
+      "Graphs",
+      "Dynamic Programming",
+      "Greedy",
+      "Backtracking",
+      "Heaps",
+      "Tries",
+    ],
+  },
+  {
+    title: "System Design",
+    tag: "Backend",
+    c: "#a8c64a",
+    topics: [
+      "Networking",
+      "Databases",
+      "Caching",
+      "Load Balancing",
+      "Message Queues",
+      "Microservices",
+      "Sharding",
+      "Replication",
+      "CAP Theorem",
+      "Rate Limiting",
+      "CDNs",
+      "Observability",
+    ],
+  },
+  {
+    title: "DevOps & Cloud",
+    tag: "Ops",
+    c: "#c08552",
+    topics: [
+      "Linux & Shell",
+      "Docker",
+      "CI/CD",
+      "Kubernetes",
+      "Terraform",
+      "AWS Basics",
+      "Monitoring",
+      "Secrets Management",
+      "Networking",
+    ],
+  },
+  {
+    title: "Data Science",
+    tag: "AI",
+    c: "#7d8a4f",
+    topics: [
+      "Python",
+      "Pandas",
+      "Data Cleaning",
+      "Visualization",
+      "Statistics",
+      "Hypothesis Testing",
+      "SQL",
+      "Feature Engineering",
+      "ML Basics",
+      "Storytelling",
+    ],
+  },
+  {
+    title: "Cybersecurity",
+    tag: "Security",
+    c: "#5c6444",
+    topics: [
+      "Networking Security",
+      "Cryptography",
+      "Web Security",
+      "OWASP Top 10",
+      "Authentication",
+      "Penetration Testing",
+      "Malware Analysis",
+      "Incident Response",
+      "Forensics",
+    ],
+  },
+  {
+    title: "Mobile (React Native)",
+    tag: "Mobile",
+    c: "#a8c64a",
+    topics: [
+      "JavaScript",
+      "React",
+      "React Native",
+      "Navigation",
+      "State",
+      "Native Modules",
+      "Animations",
+      "Push Notifications",
+      "App Store Deploy",
+    ],
+  },
+  {
+    title: "Databases & SQL",
+    tag: "Data",
+    c: "#c08552",
+    topics: [
+      "Relational Model",
+      "SQL Queries",
+      "Joins",
+      "Indexing",
+      "Normalization",
+      "Transactions",
+      "NoSQL",
+      "Query Optimization",
+      "Backups",
+    ],
+  },
+  {
+    title: "Blockchain Dev",
+    tag: "Web3",
+    c: "#7d8a4f",
+    topics: [
+      "Blockchain Basics",
+      "Cryptography",
+      "Smart Contracts",
+      "Solidity",
+      "Ethereum",
+      "Web3.js",
+      "Wallets",
+      "DeFi",
+      "Security",
+    ],
+  },
+  {
+    title: "UI/UX Design",
+    tag: "Design",
+    c: "#5c6444",
+    topics: [
+      "Design Principles",
+      "Color & Type",
+      "Layout & Grid",
+      "Figma",
+      "Wireframing",
+      "Prototyping",
+      "User Research",
+      "Accessibility",
+      "Design Systems",
+    ],
+  },
+  {
+    title: "Game Development",
+    tag: "Games",
+    c: "#a8c64a",
+    topics: [
+      "Game Loops",
+      "C# / C++",
+      "Unity Basics",
+      "Physics",
+      "Sprites & Animation",
+      "Input",
+      "Audio",
+      "Level Design",
+      "Publishing",
+    ],
+  },
+  {
+    title: "MLOps",
+    tag: "AI",
+    c: "#c08552",
+    topics: [
+      "ML Pipelines",
+      "Experiment Tracking",
+      "Model Registry",
+      "CI/CD for ML",
+      "Docker",
+      "Kubernetes",
+      "Monitoring",
+      "Feature Stores",
+      "Serving",
+    ],
+  },
+  {
+    title: "Research Methods",
+    tag: "Research",
+    c: "#7d8a4f",
+    topics: [
+      "Reading Papers",
+      "Literature Review",
+      "Hypotheses",
+      "Experiment Design",
+      "Statistics",
+      "Reproducibility",
+      "Writing",
+      "Peer Review",
+    ],
+  },
+  {
+    title: "Cloud Architecture",
+    tag: "Ops",
+    c: "#5c6444",
+    topics: [
+      "Compute",
+      "Storage",
+      "Networking",
+      "IAM",
+      "Serverless",
+      "Scaling",
+      "High Availability",
+      "Cost Optimization",
+      "IaC",
+    ],
+  },
+  {
+    title: "Data Engineering",
+    tag: "Data",
+    c: "#7d8a4f",
+    topics: [
+      "SQL",
+      "ETL Pipelines",
+      "Airflow",
+      "Spark",
+      "Data Warehouses",
+      "Streaming",
+      "Data Modeling",
+      "Quality",
+      "Orchestration",
+    ],
+  },
+  {
+    title: "Product Management",
+    tag: "Product",
+    c: "#c08552",
+    topics: [
+      "Discovery",
+      "User Research",
+      "Roadmapping",
+      "Prioritization",
+      "Metrics",
+      "A/B Testing",
+      "Stakeholders",
+      "Go-to-Market",
+    ],
+  },
+  {
+    title: "Computer Networks",
+    tag: "CS",
+    c: "#a8c64a",
+    topics: [
+      "OSI Model",
+      "TCP/IP",
+      "DNS",
+      "HTTP/HTTPS",
+      "Routing",
+      "Switching",
+      "Subnetting",
+      "Firewalls",
+      "Network Security",
+    ],
+  },
 ];
 
 const TAGS = [
@@ -50,8 +368,7 @@ export default function ExplorePage() {
             Browse learning paths across every domain.
           </h1>
           <p className="text-ink/60 mt-3 max-w-xl">
-            A catalog of subjects you can map. Want a ready-made one? Check the
-            Community page for prebuilt roadmaps.
+            Click any field to see the topics inside it, then start mapping.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-2">
@@ -69,37 +386,7 @@ export default function ExplorePage() {
             ))}
           </div>
 
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {SAMPLES.map((s) => (
-              <div
-                key={s.title}
-                className="group border-ink/10 bg-cream/90 rounded-3xl border p-6 shadow-[0_8px_30px_-16px_rgba(60,69,48,0.3)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_18px_44px_-16px_rgba(60,69,48,0.45)]"
-              >
-                <div className="flex items-center justify-between">
-                  <span
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-xl"
-                    style={{ backgroundColor: s.c }}
-                  />
-                  <span className="border-ink/12 bg-cream text-ink rounded-full border px-3 py-1 text-xs font-medium">
-                    {s.tag}
-                  </span>
-                </div>
-                <h3 className="font-display text-ink mt-4 text-xl font-semibold">
-                  {s.title}
-                </h3>
-                <p className="text-ink/55 mt-1 text-sm">{s.nodes} topics</p>
-                <div className="bg-cream-deep mt-4 h-1.5 w-full overflow-hidden rounded-full">
-                  <div
-                    className="h-full rounded-full"
-                    style={{
-                      width: `${40 + (s.nodes % 5) * 12}%`,
-                      backgroundColor: s.c,
-                    }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
+          <ExploreGrid items={ITEMS} />
         </div>
       </main>
       <Footer />

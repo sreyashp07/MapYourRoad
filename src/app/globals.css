@@ -327,3 +327,43 @@ html {
 .canvas-fade {
   animation: canvas-fade 0.5s ease-out;
 }
+
+/* explore modal animations */
+@keyframes explore-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes explore-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+@keyframes explore-topic-in {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.explore-backdrop {
+  animation: explore-fade-in 0.25s ease-out;
+}
+.explore-panel {
+  animation: explore-pop-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.explore-topic {
+  opacity: 0;
+  animation: explore-topic-in 0.3s ease-out forwards;
+}
