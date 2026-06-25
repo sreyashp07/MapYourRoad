@@ -24,7 +24,7 @@ export function SuggestionPanel({
   };
 
   return (
-    <div className="absolute top-4 left-4 z-10 w-60">
+    <div className="absolute top-3 left-3 z-10 w-48 sm:top-4 sm:left-4 sm:w-60">
       <div className="rounded-2xl border-2 border-[#3a3f2e] bg-[#1c1f17]/95 p-3 backdrop-blur">
         <button
           onClick={() => setOpen((o) => !o)}
@@ -55,10 +55,10 @@ export function SuggestionPanel({
             </div>
 
             <p className="mt-3 text-[10px] tracking-wide text-[#fdf9f0]/40 uppercase">
-              Drag onto canvas or click to add
+              Drag onto canvas or tap to add
             </p>
 
-            <div className="mt-2 flex max-h-[320px] flex-wrap gap-1.5 overflow-y-auto">
+            <div className="mt-2 flex max-h-[260px] flex-wrap gap-1.5 overflow-y-auto sm:max-h-[320px]">
               {suggestions.map((s) => (
                 <button
                   key={s}

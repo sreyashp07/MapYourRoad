@@ -51,7 +51,6 @@ export function BuilderClient({
   const [pending, startTransition] = useTransition();
   const router = useRouter();
 
-  // poll the live graph for changes to flip to "unsaved"
   const lastSnapshot = useRef<string>("");
   useEffect(() => {
     const interval = setInterval(() => {
@@ -108,8 +107,8 @@ export function BuilderClient({
 
   return (
     <div className="flex h-screen flex-col bg-[#141414]">
-      <header className="flex shrink-0 items-center justify-between gap-4 border-b border-[#2c3122] px-5 py-3">
-        <div className="flex min-w-0 items-center gap-3">
+      <header className="flex shrink-0 items-center justify-between gap-2 border-b border-[#2c3122] px-3 py-2.5 sm:gap-4 sm:px-5 sm:py-3">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           <Link
             href="/dashboard"
             className="font-display shrink-0 rounded-lg border border-[#3a3f2e] px-2.5 py-1.5 text-sm font-semibold text-[#fdf9f0]/70 transition hover:border-[#a8c64a] hover:text-[#fdf9f0]"
@@ -122,11 +121,11 @@ export function BuilderClient({
               setRoadmapTitle(e.target.value);
               setState("unsaved");
             }}
-            className="font-display max-w-xs min-w-0 truncate rounded-lg bg-transparent px-1 text-base font-semibold text-[#fdf9f0] transition outline-none hover:bg-[#1c1f17] focus:bg-[#1c1f17]"
+            className="font-display max-w-[42vw] min-w-0 truncate rounded-lg bg-transparent px-1 text-sm font-semibold text-[#fdf9f0] transition outline-none hover:bg-[#1c1f17] focus:bg-[#1c1f17] sm:max-w-xs sm:text-base"
           />
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
           <span className="hidden items-center gap-2 sm:flex">
             <span
               className="h-2 w-2 rounded-full transition-colors"
@@ -134,7 +133,13 @@ export function BuilderClient({
             />
             <span className="text-xs text-[#fdf9f0]/55">{indicator.label}</span>
           </span>
-          <span className="hidden text-xs text-[#fdf9f0]/35 md:inline">
+          {/* mobile: dot only */}
+          <span
+            className="h-2.5 w-2.5 rounded-full sm:hidden"
+            style={{ backgroundColor: indicator.dot }}
+            title={indicator.label}
+          />
+          <span className="hidden text-xs text-[#fdf9f0]/35 lg:inline">
             {userName}
           </span>
           <Button
@@ -143,11 +148,7 @@ export function BuilderClient({
             size="sm"
             className="rounded-lg bg-[#a8c64a] font-semibold text-[#141414] hover:bg-[#b6d94f]"
           >
-            {state === "saving"
-              ? "Saving…"
-              : savedId
-                ? "Save changes"
-                : "Save roadmap"}
+            {state === "saving" ? "Saving…" : savedId ? "Save" : "Save"}
           </Button>
         </div>
       </header>
