@@ -1,7 +1,16 @@
-import Link from "next/link";
 import { auth, signOut } from "@/auth";
-import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/brand/logo";
+import { Button } from "@/components/ui/button";
+import { StartRoadmap } from "@/components/dashboard/start-roadmap";
+
+export const metadata = { title: "Dashboard" };
+
+const TEMPLATES = [
+  { title: "Frontend", c: "#5c6444" },
+  { title: "Machine Learning", c: "#c08552" },
+  { title: "DSA", c: "#7d8a4f" },
+  { title: "System Design", c: "#a8c64a" },
+];
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -31,29 +40,32 @@ export default async function DashboardPage() {
       </header>
 
       <main className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <p className="text-olive text-sm font-medium">Dashboard</p>
+        <p className="text-olive text-sm font-medium">Welcome back, {name}</p>
         <h1 className="font-display text-ink mt-1 text-4xl font-bold tracking-tight sm:text-5xl">
-          Welcome back, {name}.
+          Your roadmaps
         </h1>
 
-        <div className="sb-border sb-shadow-lg bg-cream mt-10 rounded-3xl p-10 text-center">
-          <div className="bg-olive/10 mx-auto flex h-14 w-14 items-center justify-center rounded-2xl">
-            <span className="border-olive h-6 w-6 rounded-full border-2" />
-          </div>
-          <h2 className="font-display text-ink mt-5 text-2xl font-semibold">
-            No roadmaps yet
+        {/* start a new roadmap */}
+        <div className="sb-border sb-shadow-lg bg-cream mt-10 rounded-3xl p-8">
+          <h2 className="font-display text-ink text-2xl font-semibold">
+            Start a new roadmap
           </h2>
-          <p className="text-ink/60 mx-auto mt-2 max-w-md">
-            Your interactive canvas builder lands in the next update. For now,
-            explore roadmaps others have charted.
+          <p className="text-ink/60 mt-1">
+            Name it, then build your path on the canvas.
           </p>
-          <Button
-            asChild
-            size="lg"
-            className="sb-border sb-shadow bg-olive text-cream hover:bg-olive-deep mt-6 rounded-xl"
-          >
-            <Link href="/builder">Open the builder</Link>
-          </Button>
+          <StartRoadmap templates={TEMPLATES} />
+        </div>
+
+        {/* existing roadmaps (empty for now) */}
+        <div className="mt-12">
+          <h2 className="font-display text-ink text-xl font-semibold">
+            Recent
+          </h2>
+          <div className="sb-border bg-cream-deep/40 mt-4 rounded-3xl border-dashed p-10 text-center">
+            <p className="text-ink/60">
+              No roadmaps yet. Create one above to see it here.
+            </p>
+          </div>
         </div>
       </main>
     </div>
