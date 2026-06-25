@@ -2,7 +2,6 @@ import { auth, signOut } from "@/auth";
 import { Logo } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
 import { DashboardClient } from "@/components/dashboard/dashboard-client";
-import { CleanupButton } from "@/components/dashboard/cleanup-button";
 import { listRoadmaps } from "@/features/roadmaps/actions";
 
 export const metadata = { title: "Dashboard" };
@@ -21,7 +20,6 @@ export default async function DashboardPage() {
 
   return (
     <div className="bg-cream relative min-h-screen overflow-hidden">
-      {/* soft soothing ambient */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
           className="aurora top-[-18%] left-[-12%] h-[520px] w-[520px]"
@@ -61,9 +59,6 @@ export default async function DashboardPage() {
       </header>
 
       <div className="relative">
-        <div className="mx-auto max-w-6xl px-4 pt-8 sm:px-6">
-          <CleanupButton />
-        </div>
         <DashboardClient
           name={name}
           roadmaps={roadmaps}
