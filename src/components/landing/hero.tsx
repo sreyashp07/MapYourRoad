@@ -44,13 +44,10 @@ export function Hero() {
       ref={root}
       className="sb-grid relative flex min-h-screen items-center overflow-hidden px-4 pt-28 sm:px-6"
     >
-      {/* layer 1: subtle network web */}
       <NetworkWeb />
 
-      {/* layer 2: calming wash so the center reads soft and clear */}
       <div className="from-cream/55 via-cream/25 to-cream/65 pointer-events-none absolute inset-0 bg-gradient-to-b" />
 
-      {/* layer 3: vibrant aurora (sits above the wash) */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
           className="aurora aurora-live top-[-12%] left-[-8%] h-[600px] w-[600px]"
@@ -76,11 +73,10 @@ export function Hero() {
 
       <div className="relative mx-auto grid w-full max-w-7xl items-center gap-10 md:grid-cols-[1fr_1.05fr] lg:gap-16">
         <div>
-          <span className="hero-eyebrow sb-border bg-cream/85 text-ink inline-block rounded-full px-4 py-1.5 text-sm font-medium backdrop-blur">
+          <span className="hero-eyebrow sb-border bg-cream/85 text-ink inline-block rounded-full px-4 py-1.5 text-xs font-medium backdrop-blur sm:text-sm">
             Interactive learning roadmaps
           </span>
-          <h1 className="font-display text-ink relative mt-7 text-6xl leading-[1.02] font-bold tracking-tight sm:text-7xl lg:text-8xl">
-            {/* soft glow behind heading */}
+          <h1 className="font-display text-ink relative mt-6 text-4xl leading-[1.05] font-bold tracking-tight sm:mt-7 sm:text-6xl lg:text-8xl">
             <span className="pointer-events-none absolute -inset-x-6 -inset-y-4 -z-10 rounded-full bg-[#d6ef7e]/20 blur-3xl" />
             <span className="hero-line block pb-1">Map every</span>
             <span className="hero-line text-olive block pb-1">
@@ -89,16 +85,16 @@ export function Hero() {
             <span className="hero-line block pb-1">learning road.</span>
           </h1>
 
-          <div className="bg-cream-deep relative mt-8 h-[6px] w-52 overflow-hidden rounded-full">
+          <div className="bg-cream-deep relative mt-6 h-[6px] w-44 overflow-hidden rounded-full sm:mt-8 sm:w-52">
             <div className="light-beam absolute inset-y-0 w-1/2" />
           </div>
 
-          <p className="hero-sub text-ink/70 mt-8 max-w-lg text-xl leading-relaxed">
+          <p className="hero-sub text-ink/70 mt-6 max-w-lg text-base leading-relaxed sm:mt-8 sm:text-xl">
             Turn any subject into a living map of nodes and connections — from
             DSA to machine learning, system design, or research. Build it, track
             it, share it.
           </p>
-          <div className="mt-9 flex flex-wrap items-center gap-3">
+          <div className="mt-7 flex flex-wrap items-center gap-3 sm:mt-9">
             <Button
               asChild
               size="lg"
@@ -118,7 +114,7 @@ export function Hero() {
         </div>
 
         <div className="flex justify-center">
-          <div className="sb-border sb-shadow-lg bg-cream/65 w-full max-w-2xl rounded-3xl p-6 backdrop-blur-md sm:p-8">
+          <div className="sb-border sb-shadow-lg bg-cream/65 w-full max-w-md rounded-3xl p-4 backdrop-blur-md sm:max-w-2xl sm:p-8">
             <RoadmapMotif />
           </div>
         </div>
