@@ -61,7 +61,7 @@ export function ExploreGrid({ items }: { items: ExploreItem[] }) {
         >
           <div className="explore-backdrop bg-ink/40 absolute inset-0 backdrop-blur-sm" />
           <div
-            className="explore-panel border-ink/10 bg-cream relative w-full max-w-lg rounded-3xl border p-8 shadow-2xl"
+            className="explore-panel border-ink/10 bg-cream relative flex max-h-[85vh] w-full max-w-lg flex-col rounded-3xl border p-8 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start justify-between gap-4">
@@ -87,7 +87,7 @@ export function ExploreGrid({ items }: { items: ExploreItem[] }) {
                 {CROSS}
               </button>
             </div>
-            <div className="mt-6 max-h-[55vh] overflow-y-auto pr-1">
+            <div className="mt-6 min-h-0 flex-1 overflow-y-auto pr-1">
               <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                 {active.topics.map((t, i) => (
                   <li
@@ -108,7 +108,7 @@ export function ExploreGrid({ items }: { items: ExploreItem[] }) {
             </div>
             <Link
               href={"/builder?title=" + encodeURIComponent(active.title)}
-              className="bg-olive text-cream hover:bg-olive-deep mt-6 inline-flex w-full items-center justify-center rounded-xl px-4 py-3 text-sm font-semibold transition"
+              className="bg-olive text-cream hover:bg-olive-deep mt-6 inline-flex w-full shrink-0 items-center justify-center rounded-xl px-4 py-3 text-sm font-semibold transition"
             >
               {"Start this roadmap " + ARROW}
             </Link>
