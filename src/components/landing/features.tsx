@@ -46,20 +46,24 @@ export function Features() {
   useGSAP(
     () => {
       gsap.from(".features-heading", {
-        scrollTrigger: { trigger: ".features-heading", start: "top 85%" },
+        scrollTrigger: { trigger: ".features-heading", start: "top 90%" },
         y: 30,
         opacity: 0,
         duration: 0.7,
         ease: "power3.out",
       });
-      gsap.from(".feature-card", {
-        scrollTrigger: { trigger: root.current, start: "top 75%" },
-        y: 44,
-        opacity: 0,
-        duration: 0.7,
-        stagger: 0.12,
-        ease: "power3.out",
-      });
+      gsap.fromTo(
+        ".feature-card",
+        { y: 44, opacity: 0 },
+        {
+          scrollTrigger: { trigger: root.current, start: "top 90%" },
+          y: 0,
+          opacity: 1,
+          duration: 0.7,
+          stagger: 0.12,
+          ease: "power3.out",
+        }
+      );
     },
     { scope: root }
   );
@@ -78,7 +82,7 @@ export function Features() {
           {FEATURES.map((f) => (
             <div
               key={f.title}
-              className="feature-card sb-border sb-shadow bg-cream cursor-default rounded-3xl p-8 transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[7px_7px_0_0_rgba(32,35,26,0.9)]"
+              className="feature-card sb-border sb-shadow bg-cream cursor-default rounded-3xl p-8 opacity-100 transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[7px_7px_0_0_rgba(32,35,26,0.9)]"
             >
               <span
                 className="sb-border inline-block h-12 w-12 rounded-2xl"

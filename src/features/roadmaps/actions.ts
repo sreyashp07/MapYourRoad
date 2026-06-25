@@ -17,6 +17,20 @@ export interface SaveResult {
   error?: string;
 }
 
+type LeanRoadmap = {
+  _id: unknown;
+  title: string;
+  nodes: unknown[];
+  edges: unknown[];
+};
+
+type LeanListItem = {
+  _id: unknown;
+  title: string;
+  nodes: unknown[];
+  updatedAt: Date;
+};
+
 export async function createRoadmap(
   title: string,
   graph: GraphPayload
@@ -71,12 +85,7 @@ export async function getRoadmap(id: string) {
   const doc = await Roadmap.findOne({
     _id: id,
     owner: session.user.id,
-  }).lean<{
-    _id: unknown;
-    title: string;
-    nodes: unknown[];
-    edges: unknown[];
-  }>();
+  }).lean<LeanRoadmap>();
 
   if (!doc) return null;
   return {
@@ -95,9 +104,7 @@ export async function listRoadmaps() {
   const docs = await Roadmap.find({ owner: session.user.id })
     .sort({ updatedAt: -1 })
     .select("title nodes updatedAt")
-    .lean
-      { _id: unknown; title: string; nodes: unknown[]; updatedAt: Date }[]
-    >();
+    .lean<LeanListItem[]>();
 
   return docs.map((d) => {
     const nodes = (d.nodes ?? []) as { data?: { status?: string } }[];
