@@ -12,7 +12,6 @@ export interface ExploreItem {
 export function ExploreGrid({ items }: { items: ExploreItem[] }) {
   const [active, setActive] = useState<ExploreItem | null>(null);
 
-  // close on Escape
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setActive(null);
     window.addEventListener("keydown", onKey);
@@ -44,23 +43,20 @@ export function ExploreGrid({ items }: { items: ExploreItem[] }) {
             <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-olive">
               View topics
               <span className="transition-transform duration-200 group-hover:translate-x-1">
-                →
+                &rarr;
               </span>
             </span>
           </button>
         ))}
       </div>
 
-      {/* fading modal */}
       {active && (
         <div
           className="fixed inset-0 z-[80] flex items-center justify-center p-4"
           onClick={() => setActive(null)}
         >
-          {/* backdrop */}
           <div className="explore-backdrop absolute inset-0 bg-ink/40 backdrop-blur-sm" />
 
-          {/* panel */}
           <div
             className="explore-panel relative w-full max-w-lg rounded-3xl border border-ink/10 bg-cream p-8 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
@@ -84,7 +80,7 @@ export function ExploreGrid({ items }: { items: ExploreItem[] }) {
                 onClick={() => setActive(null)}
                 className="rounded-full border border-ink/15 px-2.5 py-1 text-sm text-ink/60 transition hover:bg-cream-deep"
               >
-                ✕
+                &times;
               </button>
             </div>
 
@@ -112,7 +108,7 @@ export function ExploreGrid({ items }: { items: ExploreItem[] }) {
               href={`/builder?title=${encodeURIComponent(active.title)}`}
               className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-olive px-4 py-3 text-sm font-semibold text-cream transition hover:bg-olive-deep"
             >
-              Start this roadmap →
+              Start this roadmap &rarr;
             </a>
           </div>
         </div>
