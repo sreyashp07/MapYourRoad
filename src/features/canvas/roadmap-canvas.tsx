@@ -19,6 +19,7 @@ import { RoadmapNode } from "./nodes/roadmap-node";
 import { RoadmapEdge } from "./edges/roadmap-edge";
 import { SuggestionPanel } from "./suggestion-panel";
 import { NodeDetailPanel } from "./node-detail-panel";
+import { ProgressBar } from "./progress-bar";
 import { getTemplate, buildStarterGraph, nextId } from "./topic-library";
 import type {
   RoadmapNode as RNode,
@@ -169,6 +170,8 @@ function CanvasInner({ title }: { title: string }) {
           className="!rounded-xl !border-2 !border-[#3a3f2e] !bg-[#1c1f17]"
         />
       </ReactFlow>
+
+      <ProgressBar nodes={nodes} />
 
       <NodeDetailPanel
         node={selectedNode}

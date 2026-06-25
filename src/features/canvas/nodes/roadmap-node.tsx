@@ -2,6 +2,7 @@
 
 import { memo, useState, useEffect, useRef } from "react";
 import { Handle, Position, useReactFlow, type NodeProps } from "@xyflow/react";
+import gsap from "gsap";
 import type { RoadmapNode } from "@/types/roadmap";
 
 const STATUS_RING: Record<string, string> = {
@@ -21,11 +22,35 @@ function RoadmapNodeComponent({ id, data, selected }: NodeProps<RoadmapNode>) {
   const [editing, setEditing] = useState(false);
   const [val, setVal] = useState(data.label);
   const inputRef = useRef<HTMLInputElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const prevStatus = useRef(data.status);
 
   useEffect(() => setVal(data.label), [data.label]);
   useEffect(() => {
     if (editing) inputRef.current?.select();
   }, [editing]);
+
+  // celebratory pop when transitioning to "done"
+  useEffect(() => {
+    if (
+      prevStatus.current !== "done" &&
+      data.status === "done" &&
+      cardRef.current
+    ) {
+      gsap.fromTo(
+        cardRef.current,
+        { scale: 1 },
+        {
+          scale: 1.08,
+          duration: 0.18,
+          yoyo: true,
+          repeat: 1,
+          ease: "power2.out",
+        }
+      );
+    }
+    prevStatus.current = data.status;
+  }, [data.status]);
 
   const commit = () => {
     setEditing(false);
@@ -36,6 +61,7 @@ function RoadmapNodeComponent({ id, data, selected }: NodeProps<RoadmapNode>) {
 
   return (
     <div
+      ref={cardRef}
       className="group relative max-w-[240px] min-w-[180px] rounded-2xl px-4 py-3"
       style={{
         background: "#1c1f17",
