@@ -44,26 +44,31 @@ export function Hero() {
       ref={root}
       className="sb-grid relative flex min-h-screen items-center overflow-hidden px-4 pt-28 sm:px-6"
     >
+      {/* layer 1: subtle network web */}
       <NetworkWeb />
 
+      {/* layer 2: calming wash so the center reads soft and clear */}
+      <div className="from-cream/55 via-cream/25 to-cream/65 pointer-events-none absolute inset-0 bg-gradient-to-b" />
+
+      {/* layer 3: vibrant aurora (sits above the wash) */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
           className="aurora aurora-live top-[-12%] left-[-8%] h-[600px] w-[600px]"
           style={{
-            background: "radial-gradient(circle, #b6d94f, transparent 68%)",
+            background: "radial-gradient(circle, #b6d94f, transparent 70%)",
           }}
         />
         <div
           className="aurora aurora-live top-[0%] right-[-6%] h-[560px] w-[560px]"
           style={{
-            background: "radial-gradient(circle, #7d8a4f, transparent 68%)",
+            background: "radial-gradient(circle, #7d8a4f, transparent 70%)",
             animationDelay: "-3s",
           }}
         />
         <div
           className="aurora aurora-live bottom-[-22%] left-[28%] h-[600px] w-[600px]"
           style={{
-            background: "radial-gradient(circle, #d6ef7e, transparent 68%)",
+            background: "radial-gradient(circle, #d6ef7e, transparent 70%)",
             animationDelay: "-6s",
           }}
         />
@@ -71,10 +76,12 @@ export function Hero() {
 
       <div className="relative mx-auto grid w-full max-w-7xl items-center gap-10 md:grid-cols-[1fr_1.05fr] lg:gap-16">
         <div>
-          <span className="hero-eyebrow sb-border bg-cream/80 text-ink inline-block rounded-full px-4 py-1.5 text-sm font-medium backdrop-blur">
+          <span className="hero-eyebrow sb-border bg-cream/85 text-ink inline-block rounded-full px-4 py-1.5 text-sm font-medium backdrop-blur">
             Interactive learning roadmaps
           </span>
-          <h1 className="font-display text-ink mt-6 text-6xl leading-[1.02] font-bold tracking-tight sm:text-7xl lg:text-8xl">
+          <h1 className="font-display text-ink relative mt-7 text-6xl leading-[1.02] font-bold tracking-tight sm:text-7xl lg:text-8xl">
+            {/* soft glow behind heading */}
+            <span className="pointer-events-none absolute -inset-x-6 -inset-y-4 -z-10 rounded-full bg-[#d6ef7e]/20 blur-3xl" />
             <span className="hero-line block pb-1">Map every</span>
             <span className="hero-line text-olive block pb-1">
               step of your
@@ -86,7 +93,7 @@ export function Hero() {
             <div className="light-beam absolute inset-y-0 w-1/2" />
           </div>
 
-          <p className="hero-sub text-ink/70 mt-8 max-w-lg text-xl">
+          <p className="hero-sub text-ink/70 mt-8 max-w-lg text-xl leading-relaxed">
             Turn any subject into a living map of nodes and connections — from
             DSA to machine learning, system design, or research. Build it, track
             it, share it.
@@ -103,7 +110,7 @@ export function Hero() {
               asChild
               size="lg"
               variant="outline"
-              className="hero-cta sb-border bg-cream/80 rounded-2xl px-7 text-base backdrop-blur"
+              className="hero-cta sb-border bg-cream/85 rounded-2xl px-7 text-base backdrop-blur"
             >
               <Link href="/explore">Explore roadmaps</Link>
             </Button>
@@ -111,7 +118,7 @@ export function Hero() {
         </div>
 
         <div className="flex justify-center">
-          <div className="sb-border sb-shadow-lg bg-cream/60 w-full max-w-2xl rounded-3xl p-6 backdrop-blur-md sm:p-8">
+          <div className="sb-border sb-shadow-lg bg-cream/65 w-full max-w-2xl rounded-3xl p-6 backdrop-blur-md sm:p-8">
             <RoadmapMotif />
           </div>
         </div>
