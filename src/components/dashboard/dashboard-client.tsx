@@ -11,6 +11,7 @@ interface Roadmap {
   title: string;
   total: number;
   done: number;
+  isPublic: boolean;
 }
 interface Template {
   title: string;
@@ -86,7 +87,6 @@ export function DashboardClient({
         </h1>
       </div>
 
-      {/* stats */}
       <div className="mt-8 grid gap-4 sm:grid-cols-3">
         {STAT_CARDS.map((s) => (
           <div
@@ -107,7 +107,6 @@ export function DashboardClient({
         ))}
       </div>
 
-      {/* start a new roadmap */}
       <div className="dash-start border-ink/10 bg-cream/90 mt-10 rounded-3xl border p-8 shadow-[0_10px_40px_-18px_rgba(60,69,48,0.4)] backdrop-blur">
         <h2 className="font-display text-ink text-2xl font-semibold">
           Start a new roadmap
@@ -118,7 +117,6 @@ export function DashboardClient({
         <StartRoadmap templates={templates} />
       </div>
 
-      {/* recent */}
       <div className="dash-recent mt-12">
         <h2 className="font-display text-ink text-xl font-semibold">Recent</h2>
         {roadmaps.length === 0 ? (
@@ -136,6 +134,7 @@ export function DashboardClient({
                 title={r.title}
                 total={r.total}
                 done={r.done}
+                isPublic={r.isPublic}
               />
             ))}
           </div>

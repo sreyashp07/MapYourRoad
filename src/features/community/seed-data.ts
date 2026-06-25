@@ -30,12 +30,18 @@ export const SEED_ROADMAPS: SeedRoadmap[] = [
     description: "Math foundations through deploying real models.",
     category: "AI",
     topics: [
-      { label: "Linear Algebra", description: "Vectors, matrices, operations." },
+      {
+        label: "Linear Algebra",
+        description: "Vectors, matrices, operations.",
+      },
       { label: "Statistics", description: "Distributions, inference." },
       { label: "Python & NumPy", description: "The ML toolkit." },
       { label: "Linear Regression", description: "Your first model." },
       { label: "Gradient Descent", description: "How models learn." },
-      { label: "Neural Networks", description: "Layers, activation, backprop." },
+      {
+        label: "Neural Networks",
+        description: "Layers, activation, backprop.",
+      },
       { label: "Model Evaluation", description: "Metrics, cross-validation." },
       { label: "Deployment", description: "Serving models in production." },
     ],
@@ -45,7 +51,10 @@ export const SEED_ROADMAPS: SeedRoadmap[] = [
     description: "Crack interviews with structured problem-solving.",
     category: "CS",
     topics: [
-      { label: "Arrays & Strings", description: "Two pointers, sliding window." },
+      {
+        label: "Arrays & Strings",
+        description: "Two pointers, sliding window.",
+      },
       { label: "Hashing", description: "Maps, sets, frequency counts." },
       { label: "Recursion", description: "Base cases, call stacks." },
       { label: "Binary Search", description: "On arrays and answers." },

@@ -28,6 +28,7 @@ type LeanListItem = {
   _id: unknown;
   title: string;
   nodes: unknown[];
+  isPublic: boolean;
   updatedAt: Date;
 };
 
@@ -44,6 +45,7 @@ export async function createRoadmap(
       title: title.trim() || "Untitled roadmap",
       slug: slugify(title),
       owner: session.user.id,
+      ownerName: session.user.name ?? "Anonymous",
       nodes: graph.nodes,
       edges: graph.edges,
     });
@@ -103,7 +105,7 @@ export async function listRoadmaps() {
   await dbConnect();
   const docs = await Roadmap.find({ owner: session.user.id })
     .sort({ updatedAt: -1 })
-    .select("title nodes updatedAt")
+    .select("title nodes isPublic updatedAt")
     .lean<LeanListItem[]>();
 
   return docs.map((d) => {
@@ -114,6 +116,7 @@ export async function listRoadmaps() {
       title: d.title,
       total: nodes.length,
       done,
+      isPublic: !!d.isPublic,
       updatedAt: d.updatedAt?.toISOString() ?? "",
     };
   });
