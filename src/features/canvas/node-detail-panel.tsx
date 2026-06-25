@@ -33,7 +33,7 @@ export function NodeDetailPanel({ node, onClose, onUpdate, onDelete }: Props) {
   if (!node) return null;
 
   return (
-    <div className="absolute top-0 right-0 z-20 flex h-full w-full max-w-sm flex-col border-l-2 border-[#3a3f2e] bg-[#1c1f17] shadow-2xl">
+    <div className="panel-enter absolute top-0 right-0 z-20 flex h-full w-full max-w-sm flex-col border-l-2 border-[#3a3f2e] bg-[#1c1f17] shadow-2xl">
       <div className="flex items-center justify-between border-b border-[#3a3f2e] px-5 py-4">
         <span className="font-display text-sm font-semibold text-[#fdf9f0]">
           Topic details

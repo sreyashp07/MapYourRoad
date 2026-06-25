@@ -300,3 +300,30 @@ html {
     stroke-dashoffset: -11;
   }
 }
+
+/* builder panel + canvas entrance polish */
+@keyframes panel-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.panel-enter {
+  animation: panel-slide-in 0.32s ease-out;
+}
+
+@keyframes canvas-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.canvas-fade {
+  animation: canvas-fade 0.5s ease-out;
+}

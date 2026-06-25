@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState, useEffect } from "react";
+import { useCallback, useMemo, useState, useEffect } from "react";
 import {
   ReactFlow,
   Background,
@@ -21,6 +21,7 @@ import { SuggestionPanel } from "./suggestion-panel";
 import { NodeDetailPanel } from "./node-detail-panel";
 import { ProgressBar } from "./progress-bar";
 import { getTemplate, buildStarterGraph, nextId } from "./topic-library";
+import { useCanvasIntro } from "./use-canvas-intro";
 import type {
   RoadmapNode as RNode,
   RoadmapEdge as REdge,
@@ -61,8 +62,8 @@ function CanvasInner({
   const [edges, setEdges, onEdgesChange] = useEdgesState<REdge>(seed.edges);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const { screenToFlowPosition } = useReactFlow();
+  const { containerRef, replay } = useCanvasIntro([]);
 
-  // keep the page-level ref in sync with the live graph so Save can read it
   useEffect(() => {
     if (graphRef) graphRef.current = { nodes, edges };
   }, [nodes, edges, graphRef]);
@@ -153,6 +154,7 @@ function CanvasInner({
 
   return (
     <div
+      ref={containerRef}
       className="relative h-full w-full"
       style={{ background: "#141414" }}
       onDrop={onDrop}
@@ -163,6 +165,15 @@ function CanvasInner({
         onAdd={(label) => addTopic(label)}
         onDragStartTopic={() => {}}
       />
+
+      {/* replay intro */}
+      <button
+        onClick={replay}
+        className="absolute top-4 right-4 z-10 rounded-xl border-2 border-[#3a3f2e] bg-[#1c1f17]/95 px-3 py-2 text-xs font-medium text-[#fdf9f0]/80 backdrop-blur transition hover:border-[#a8c64a] hover:text-[#fdf9f0]"
+        title="Replay animation"
+      >
+        ↻ Replay
+      </button>
 
       <ReactFlow
         nodes={nodes}
