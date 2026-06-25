@@ -27,13 +27,13 @@ export function StartRoadmap({ templates }: { templates: Template[] }) {
           onChange={(e) => setTitle(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && start(title)}
           placeholder="e.g. My Machine Learning Path"
-          className="sb-border bg-cream text-ink focus:border-olive focus:ring-olive/30 w-full rounded-xl px-4 py-3 transition outline-none focus:ring-2"
+          className="border-ink/15 bg-cream text-ink focus:border-olive focus:ring-olive/25 w-full rounded-2xl border px-4 py-3 transition outline-none focus:ring-2"
         />
         <Button
           onClick={() => start(title)}
           disabled={!title.trim()}
           size="lg"
-          className="sb-border sb-shadow bg-olive text-cream hover:bg-olive-deep shrink-0 rounded-xl"
+          className="bg-olive text-cream hover:bg-olive-deep shrink-0 rounded-2xl px-6 shadow-[0_8px_24px_-10px_rgba(60,69,48,0.6)]"
         >
           Start building →
         </Button>
@@ -46,7 +46,7 @@ export function StartRoadmap({ templates }: { templates: Template[] }) {
             <button
               key={t.title}
               onClick={() => start(t.title)}
-              className="sb-border bg-cream text-ink flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition hover:-translate-y-0.5"
+              className="border-ink/12 bg-cream text-ink hover:border-olive/40 flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition hover:-translate-y-0.5 hover:shadow-[0_6px_18px_-8px_rgba(60,69,48,0.4)]"
             >
               <span
                 className="h-3 w-3 rounded-full"

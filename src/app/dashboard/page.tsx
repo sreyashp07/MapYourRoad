@@ -1,8 +1,7 @@
 import { auth, signOut } from "@/auth";
 import { Logo } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
-import { StartRoadmap } from "@/components/dashboard/start-roadmap";
-import { RoadmapCard } from "@/components/dashboard/roadmap-card";
+import { DashboardClient } from "@/components/dashboard/dashboard-client";
 import { listRoadmaps } from "@/features/roadmaps/actions";
 
 export const metadata = { title: "Dashboard" };
@@ -20,8 +19,26 @@ export default async function DashboardPage() {
   const roadmaps = await listRoadmaps();
 
   return (
-    <div className="bg-cream min-h-screen">
-      <header className="border-ink/15 border-b-[1.5px] px-4 py-4 sm:px-6">
+    <div className="bg-cream relative min-h-screen overflow-hidden">
+      {/* soft soothing ambient */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="aurora top-[-18%] left-[-12%] h-[520px] w-[520px]"
+          style={{
+            background: "radial-gradient(circle,#cfe3a8,transparent 70%)",
+            opacity: 0.32,
+          }}
+        />
+        <div
+          className="aurora right-[-10%] bottom-[-22%] h-[560px] w-[560px]"
+          style={{
+            background: "radial-gradient(circle,#b6d94f,transparent 72%)",
+            opacity: 0.25,
+          }}
+        />
+      </div>
+
+      <header className="border-ink/10 relative border-b px-4 py-4 backdrop-blur sm:px-6">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <Logo href="/dashboard" />
           <form
@@ -34,7 +51,7 @@ export default async function DashboardPage() {
               type="submit"
               variant="outline"
               size="sm"
-              className="sb-border bg-cream rounded-xl"
+              className="border-ink/15 bg-cream/80 rounded-xl"
             >
               Sign out
             </Button>
@@ -42,47 +59,13 @@ export default async function DashboardPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <p className="text-olive text-sm font-medium">Welcome back, {name}</p>
-        <h1 className="font-display text-ink mt-1 text-4xl font-bold tracking-tight sm:text-5xl">
-          Your roadmaps
-        </h1>
-
-        <div className="sb-border sb-shadow-lg bg-cream mt-10 rounded-3xl p-8">
-          <h2 className="font-display text-ink text-2xl font-semibold">
-            Start a new roadmap
-          </h2>
-          <p className="text-ink/60 mt-1">
-            Name it, then build your path on the canvas.
-          </p>
-          <StartRoadmap templates={TEMPLATES} />
-        </div>
-
-        <div className="mt-12">
-          <h2 className="font-display text-ink text-xl font-semibold">
-            Recent
-          </h2>
-          {roadmaps.length === 0 ? (
-            <div className="sb-border bg-cream-deep/40 mt-4 rounded-3xl border-dashed p-10 text-center">
-              <p className="text-ink/60">
-                No roadmaps yet. Create one above to see it here.
-              </p>
-            </div>
-          ) : (
-            <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {roadmaps.map((r) => (
-                <RoadmapCard
-                  key={r.id}
-                  id={r.id}
-                  title={r.title}
-                  total={r.total}
-                  done={r.done}
-                />
-              ))}
-            </div>
-          )}
-        </div>
-      </main>
+      <div className="relative">
+        <DashboardClient
+          name={name}
+          roadmaps={roadmaps}
+          templates={TEMPLATES}
+        />
+      </div>
     </div>
   );
 }
