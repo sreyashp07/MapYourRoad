@@ -367,3 +367,18 @@ html {
   opacity: 0;
   animation: explore-topic-in 0.3s ease-out forwards;
 }
+
+/* explore expand-in-place */
+@keyframes explore-expand-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.explore-expand {
+  animation: explore-expand-in 0.3s ease-out;
+}
