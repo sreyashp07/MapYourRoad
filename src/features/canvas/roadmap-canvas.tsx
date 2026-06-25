@@ -13,7 +13,6 @@ import {
   useEdgesState,
   useReactFlow,
   type Connection,
-  type Node,
 } from "@xyflow/react";
 import { RoadmapNode } from "./nodes/roadmap-node";
 import { RoadmapEdge } from "./edges/roadmap-edge";
@@ -42,12 +41,7 @@ interface CanvasProps {
   graphRef?: React.MutableRefObject<GraphSnapshot | null>;
 }
 
-function CanvasInner({
-  title,
-  initialNodes,
-  initialEdges,
-  graphRef,
-}: CanvasProps) {
+function CanvasInner({ title, initialNodes, initialEdges, graphRef }: CanvasProps) {
   const { suggestions } = useMemo(() => getTemplate(title), [title]);
 
   const seed = useMemo(() => {
@@ -98,16 +92,13 @@ function CanvasInner({
       setNodes((nds) => [...nds, newNode]);
 
       if (anchor && !position) {
-        setEdges((eds) =>
-          addEdge(
-            {
-              source: anchor.id,
-              target: id,
-              type: "roadmapEdge",
-            } as Connection,
-            eds
-          )
-        );
+        const newEdge: REdge = {
+          id: `e-${anchor.id}-${id}`,
+          source: anchor.id,
+          target: id,
+          type: "roadmapEdge",
+        };
+        setEdges((eds) => [...eds, newEdge]);
       }
     },
     [nodes, selectedId, setNodes, setEdges]
@@ -166,22 +157,21 @@ function CanvasInner({
         onDragStartTopic={() => {}}
       />
 
-      {/* replay intro */}
       <button
         onClick={replay}
-        className="absolute top-4 right-4 z-10 rounded-xl border-2 border-[#3a3f2e] bg-[#1c1f17]/95 px-3 py-2 text-xs font-medium text-[#fdf9f0]/80 backdrop-blur transition hover:border-[#a8c64a] hover:text-[#fdf9f0]"
+        className="absolute right-4 top-4 z-10 rounded-xl border-2 border-[#3a3f2e] bg-[#1c1f17]/95 px-3 py-2 text-xs font-medium text-[#fdf9f0]/80 backdrop-blur transition hover:border-[#a8c64a] hover:text-[#fdf9f0]"
         title="Replay animation"
       >
         ↻ Replay
       </button>
 
-      <ReactFlow
+      <ReactFlow<RNode, REdge>
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
-        onNodeClick={(_, node: Node) => setSelectedId(node.id)}
+        onNodeClick={(_, node) => setSelectedId(node.id)}
         onPaneClick={() => setSelectedId(null)}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
