@@ -17,7 +17,6 @@ interface Field {
   color: string;
 }
 
-// Positioned only around the edges — center stays clear for the title + bar.
 const FIELDS: Field[] = [
   {
     label: "Machine Learning",
@@ -97,7 +96,6 @@ export function Preloader() {
         },
       });
 
-      // gentle, smooth drift — shape + label move together
       gsap.fromTo(
         ".pl-field",
         { autoAlpha: 0, y: 10 },
@@ -125,8 +123,8 @@ export function Preloader() {
         onUpdate: () => setPct(Math.round(counter.v)),
       })
         .to(
-          ".pl-car",
-          { left: "100%", xPercent: -100, duration: 2.4, ease: "power1.inOut" },
+          ".pl-marker",
+          { left: "100%", xPercent: -50, duration: 2.4, ease: "power1.inOut" },
           0
         )
         .to(
@@ -158,7 +156,6 @@ export function Preloader() {
         <NetworkWeb />
       </div>
 
-      {/* floating topics — shape + whitish label, pinned to the edges */}
       <div className="pointer-events-none absolute inset-0">
         {FIELDS.map((f) => (
           <div
@@ -174,7 +171,6 @@ export function Preloader() {
         ))}
       </div>
 
-      {/* main area — kept clear */}
       <div className="relative w-[min(560px,86vw)]">
         <h1 className="font-display text-cream text-center text-5xl font-bold tracking-tight sm:text-7xl">
           MapYourRoad
@@ -185,12 +181,15 @@ export function Preloader() {
             className="pl-fill absolute top-0 left-0 h-full w-0 rounded-full"
             style={{ background: "linear-gradient(90deg,#a8c64a,#d6ef7e)" }}
           />
-          <div className="absolute inset-0 flex items-center justify-around opacity-40">
-            {Array.from({ length: 22 }).map((_, i) => (
-              <span key={i} className="bg-cream h-[2px] w-3" />
-            ))}
-          </div>
-          <div className="pl-car absolute -top-4 left-0 text-3xl">🏎️</div>
+          {/* sleek glowing marker (replaces the car) */}
+          <div
+            className="pl-marker absolute -top-1.5 left-0 h-5 w-5 rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, #ffffff 0%, #d6ef7e 45%, #a8c64a 100%)",
+              boxShadow: "0 0 18px 5px rgba(168,198,74,0.7)",
+            }}
+          />
         </div>
 
         <div className="font-display text-cream mt-5 text-center text-2xl font-bold">
