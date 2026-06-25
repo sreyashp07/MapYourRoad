@@ -23,6 +23,21 @@ const FEATURES = [
     body: "Publish your roadmaps and discover paths others have charted.",
     c: "#7d8a4f",
   },
+  {
+    title: "Enrich every node",
+    body: "Attach notes, links, and resources to any topic so each node is a study hub.",
+    c: "#a8c64a",
+  },
+  {
+    title: "Any domain",
+    body: "From frontend to ML, system design to research — map whatever you're learning.",
+    c: "#5c6444",
+  },
+  {
+    title: "Yours to own",
+    body: "Keep maps private or publish them. Your road, your rules.",
+    c: "#c08552",
+  },
 ];
 
 export function Features() {
@@ -42,7 +57,7 @@ export function Features() {
         y: 44,
         opacity: 0,
         duration: 0.7,
-        stagger: 0.15,
+        stagger: 0.12,
         ease: "power3.out",
       });
     },
@@ -51,11 +66,11 @@ export function Features() {
 
   return (
     <section ref={root} className="px-4 py-28 sm:px-6">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-7xl">
         <h2 className="features-heading font-display text-ink max-w-xl text-4xl font-bold tracking-tight sm:text-5xl">
           A calmer way to learn anything.
         </h2>
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((f) => (
             <div
               key={f.title}
