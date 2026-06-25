@@ -24,6 +24,17 @@ export function ExploreGrid({ items }: { items: ExploreItem[] }) {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  useEffect(() => {
+    if (active) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [active]);
+
   return (
     <div>
       <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
