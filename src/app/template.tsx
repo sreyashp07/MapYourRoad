@@ -11,8 +11,14 @@ export default function Template({ children }: { children: React.ReactNode }) {
     () => {
       gsap.fromTo(
         ref.current,
-        { autoAlpha: 0, y: 14 },
-        { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }
+        { autoAlpha: 0, y: 26, filter: "blur(10px)" },
+        {
+          autoAlpha: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 0.75,
+          ease: "power3.out",
+        }
       );
     },
     { scope: ref }
