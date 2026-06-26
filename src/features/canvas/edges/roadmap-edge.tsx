@@ -27,8 +27,8 @@ export function RoadmapEdge({
       path={edgePath}
       markerEnd={markerEnd}
       style={{
-        stroke: "#a8c64a",
-        strokeWidth: 2,
+        stroke: "#7d8a4f",
+        strokeWidth: 2.5,
         strokeDasharray: "6 5",
         animation: "rf-dash 0.6s linear infinite",
       }}

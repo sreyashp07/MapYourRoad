@@ -67,9 +67,20 @@ function CanvasInner({ title, initialNodes, initialEdges, graphRef }: CanvasProp
     [nodes, selectedId]
   );
 
+  // Single-connection rule: a node may only have ONE incoming edge (one parent).
   const onConnect = useCallback(
-    (params: Connection) =>
-      setEdges((eds) => addEdge({ ...params, type: "roadmapEdge" }, eds)),
+    (params: Connection) => {
+      setEdges((eds) => {
+        if (!params.source || !params.target) return eds;
+        if (params.source === params.target) return eds; // no self-loops
+        const targetTaken = eds.some((e) => e.target === params.target);
+        const duplicate = eds.some(
+          (e) => e.source === params.source && e.target === params.target
+        );
+        if (targetTaken || duplicate) return eds;
+        return addEdge({ ...params, type: "roadmapEdge" }, eds);
+      });
+    },
     [setEdges]
   );
 
