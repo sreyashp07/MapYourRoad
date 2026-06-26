@@ -394,3 +394,15 @@ html {
 .react-flow__controls-button:hover {
   background-color: #2c3122 !important;
 }
+
+/* edges are clickable (to delete) */
+.react-flow__edge {
+  cursor: pointer;
+}
+.react-flow__edge:hover .react-flow__edge-path {
+  stroke: #a8c64a !important;
+  stroke-width: 3.5 !important;
+}
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: #a8c64a !important;
+}

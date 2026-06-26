@@ -20,15 +20,27 @@ export function RoadmapCard({ id, title, total, done }: Props) {
   const offset = CIRC - (pct / 100) * CIRC;
 
   return (
-    <div className="group flex flex-col rounded-3xl border border-ink/10 bg-cream/90 p-6 shadow-[0_8px_30px_-14px_rgba(60,69,48,0.35)] backdrop-blur transition-all duration-300 hover:-translate-y-1.5 hover:border-olive/30 hover:shadow-[0_18px_44px_-16px_rgba(60,69,48,0.5)]">
+    <div className="group border-ink/10 bg-cream/90 hover:border-olive/30 flex flex-col rounded-3xl border p-6 shadow-[0_8px_30px_-14px_rgba(60,69,48,0.35)] backdrop-blur transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_18px_44px_-16px_rgba(60,69,48,0.5)]">
       <Link href={`/builder?id=${id}`} className="block flex-1">
         <div className="flex items-start justify-between gap-3">
-          <h3 className="font-display text-xl font-semibold leading-tight text-ink">
+          <h3 className="font-display text-ink text-xl leading-tight font-semibold">
             {title}
           </h3>
           <div className="relative shrink-0">
-            <svg width="46" height="46" viewBox="0 0 44 44" className="-rotate-90">
-              <circle cx="22" cy="22" r={R} fill="none" stroke="#e3ddcb" strokeWidth="4" />
+            <svg
+              width="46"
+              height="46"
+              viewBox="0 0 44 44"
+              className="-rotate-90"
+            >
+              <circle
+                cx="22"
+                cy="22"
+                r={R}
+                fill="none"
+                stroke="#e3ddcb"
+                strokeWidth="4"
+              />
               <circle
                 cx="22"
                 cy="22"
@@ -42,20 +54,20 @@ export function RoadmapCard({ id, title, total, done }: Props) {
                 className="transition-[stroke-dashoffset] duration-700 ease-out"
               />
             </svg>
-            <span className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-ink">
+            <span className="text-ink absolute inset-0 flex items-center justify-center text-[10px] font-bold">
               {pct}%
             </span>
           </div>
         </div>
-        <p className="mt-2 text-sm text-ink/55">
+        <p className="text-ink/55 mt-2 text-sm">
           {total} topics · {done} done
         </p>
       </Link>
 
-      <div className="mt-5 flex items-center justify-between border-t border-ink/10 pt-4">
+      <div className="border-ink/10 mt-5 flex items-center justify-between border-t pt-4">
         <Link
           href={`/builder?id=${id}`}
-          className="inline-flex items-center gap-1 text-sm font-medium text-olive"
+          className="text-olive inline-flex items-center gap-1 text-sm font-medium"
         >
           Open builder
           <span className="transition-transform duration-200 group-hover:translate-x-1">
@@ -69,7 +81,7 @@ export function RoadmapCard({ id, title, total, done }: Props) {
             })
           }
           disabled={pending}
-          className="rounded-lg px-2 py-1 text-xs font-medium text-ink/40 transition hover:bg-clay/10 hover:text-clay"
+          className="text-ink/40 hover:bg-clay/10 hover:text-clay rounded-lg px-2 py-1 text-xs font-medium transition"
         >
           {pending ? "Deleting…" : "Delete"}
         </button>

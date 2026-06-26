@@ -53,17 +53,17 @@ The experience deliberately runs in two moods. The marketing and dashboard surfa
 
 ## Tech Stack
 
-| Layer | Technologies |
-| --- | --- |
-| Framework | Next.js 16 (App Router, Server Components, Server Actions, Turbopack), React 19 |
-| Language | TypeScript |
-| Styling | Tailwind CSS v4, shadcn/ui, self-hosted Clash Display and Satoshi fonts |
-| Canvas and motion | React Flow v12 (@xyflow/react), GSAP with @gsap/react |
-| State and validation | Redux Toolkit, Zod |
-| Authentication | Auth.js v5 (Credentials provider), bcryptjs, JWT sessions |
-| Database | MongoDB Atlas, Mongoose |
-| Tooling | ESLint, Prettier |
-| Deployment | Vercel, GitHub (automatic CI/CD on push) |
+| Layer                | Technologies                                                                    |
+| -------------------- | ------------------------------------------------------------------------------- |
+| Framework            | Next.js 16 (App Router, Server Components, Server Actions, Turbopack), React 19 |
+| Language             | TypeScript                                                                      |
+| Styling              | Tailwind CSS v4, shadcn/ui, self-hosted Clash Display and Satoshi fonts         |
+| Canvas and motion    | React Flow v12 (@xyflow/react), GSAP with @gsap/react                           |
+| State and validation | Redux Toolkit, Zod                                                              |
+| Authentication       | Auth.js v5 (Credentials provider), bcryptjs, JWT sessions                       |
+| Database             | MongoDB Atlas, Mongoose                                                         |
+| Tooling              | ESLint, Prettier                                                                |
+| Deployment           | Vercel, GitHub (automatic CI/CD on push)                                        |
 
 ---
 
@@ -109,9 +109,9 @@ The experience deliberately runs in two moods. The marketing and dashboard surfa
 
 ## Data Model
 
-| Collection | Purpose |
-| --- | --- |
-| `users` | Account records: name, email, and a bcrypt-hashed password. |
+| Collection | Purpose                                                                                                                                                    |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `users`    | Account records: name, email, and a bcrypt-hashed password.                                                                                                |
 | `roadmaps` | A roadmap owned by a user. Holds title, slug, owner reference, visibility, and embedded `nodes` and `edges` arrays that mirror the React Flow graph shape. |
 
 Each embedded node stores its id, position, and a `data` object (label, description, status, notes). Each embedded edge stores its id, source, target, and type.
@@ -209,12 +209,12 @@ The application is deployed on Vercel.
 
 ## Available Scripts
 
-| Script | Description |
-| --- | --- |
-| `npm run dev` | Start the development server. |
+| Script          | Description                           |
+| --------------- | ------------------------------------- |
+| `npm run dev`   | Start the development server.         |
 | `npm run build` | Create an optimized production build. |
-| `npm start` | Run the production build locally. |
-| `npm run lint` | Run ESLint. |
+| `npm start`     | Run the production build locally.     |
+| `npm run lint`  | Run ESLint.                           |
 
 ---
 

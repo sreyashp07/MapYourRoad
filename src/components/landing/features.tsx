@@ -77,10 +77,10 @@ export function Features() {
   return (
     <section ref={root} className="px-4 py-28 sm:px-6">
       <div className="mx-auto max-w-7xl">
-        <h2 className="features-heading max-w-2xl font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
+        <h2 className="features-heading font-display text-ink max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl">
           A calmer way to learn anything.
         </h2>
-        <p className="mt-4 max-w-xl text-lg text-ink/60">
+        <p className="text-ink/60 mt-4 max-w-xl text-lg">
           Everything you need to turn a subject into a path you can see, follow,
           and finish.
         </p>
@@ -88,18 +88,18 @@ export function Features() {
           {FEATURES.map((f) => (
             <div
               key={f.title}
-              className="feature-card sb-border sb-shadow cursor-default rounded-3xl bg-cream p-8 opacity-100 transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[7px_7px_0_0_rgba(32,35,26,0.9)]"
+              className="feature-card sb-border sb-shadow bg-cream cursor-default rounded-3xl p-8 opacity-100 transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[7px_7px_0_0_rgba(32,35,26,0.9)]"
             >
               <span
-                className="sb-border flex h-12 w-12 items-center justify-center rounded-2xl font-display text-xl font-bold text-cream"
+                className="sb-border font-display text-cream flex h-12 w-12 items-center justify-center rounded-2xl text-xl font-bold"
                 style={{ backgroundColor: f.c }}
               >
                 {f.letter}
               </span>
-              <h3 className="mt-5 font-display text-2xl font-semibold text-ink">
+              <h3 className="font-display text-ink mt-5 text-2xl font-semibold">
                 {f.title}
               </h3>
-              <p className="mt-2 leading-relaxed text-ink/65">{f.body}</p>
+              <p className="text-ink/65 mt-2 leading-relaxed">{f.body}</p>
             </div>
           ))}
         </div>

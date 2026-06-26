@@ -1,12 +1,7 @@
 "use client";
 
 import { memo, useState, useEffect, useRef } from "react";
-import {
-  Handle,
-  Position,
-  useReactFlow,
-  type NodeProps,
-} from "@xyflow/react";
+import { Handle, Position, useReactFlow, type NodeProps } from "@xyflow/react";
 import gsap from "gsap";
 import type { RoadmapNode as RoadmapNodeType } from "@/types/roadmap";
 
@@ -21,7 +16,11 @@ const STATUS_LABEL: Record<string, string> = {
   done: "Done",
 };
 
-function RoadmapNodeComponent({ id, data, selected }: NodeProps<RoadmapNodeType>) {
+function RoadmapNodeComponent({
+  id,
+  data,
+  selected,
+}: NodeProps<RoadmapNodeType>) {
   const ring = STATUS_RING[data.status] ?? STATUS_RING.todo;
   const { updateNodeData } = useReactFlow();
   const [editing, setEditing] = useState(false);
@@ -44,7 +43,13 @@ function RoadmapNodeComponent({ id, data, selected }: NodeProps<RoadmapNodeType>
       gsap.fromTo(
         cardRef.current,
         { scale: 1 },
-        { scale: 1.08, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" }
+        {
+          scale: 1.08,
+          duration: 0.18,
+          yoyo: true,
+          repeat: 1,
+          ease: "power2.out",
+        }
       );
     }
     prevStatus.current = data.status;
@@ -60,7 +65,7 @@ function RoadmapNodeComponent({ id, data, selected }: NodeProps<RoadmapNodeType>
   return (
     <div
       ref={cardRef}
-      className="group relative min-w-[180px] max-w-[240px] rounded-2xl px-4 py-3"
+      className="group relative max-w-[240px] min-w-[180px] rounded-2xl px-4 py-3"
       style={{
         background: "#1c1f17",
         border: `2px solid ${selected ? "#a8c64a" : "#3a3f2e"}`,
@@ -94,12 +99,12 @@ function RoadmapNodeComponent({ id, data, selected }: NodeProps<RoadmapNodeType>
                 setEditing(false);
               }
             }}
-            className="nodrag w-full rounded border border-[#a8c64a] bg-[#141414] px-1.5 py-0.5 font-display text-base font-semibold text-[#fdf9f0] outline-none"
+            className="nodrag font-display w-full rounded border border-[#a8c64a] bg-[#141414] px-1.5 py-0.5 text-base font-semibold text-[#fdf9f0] outline-none"
           />
         ) : (
           <p
             onDoubleClick={() => setEditing(true)}
-            className="font-display text-base font-semibold leading-tight text-[#fdf9f0]"
+            className="font-display text-base leading-tight font-semibold text-[#fdf9f0]"
             title="Double-click to rename"
           >
             {data.label}
