@@ -31,30 +31,29 @@ const PATHS = [
   "M90 380 Q155 360 220 330",
 ];
 
-export function RoadmapMotif() {
+export function RoadmapMotif({ replay = true }: { replay?: boolean }) {
   const ref = useRef<SVGSVGElement>(null);
 
   useGSAP(
     () => {
+      if (!replay) return; // hold until triggered (after preloader)
+
       const paths = gsap.utils.toArray<SVGPathElement>(".motif-path");
       paths.forEach((p) => {
         const len = p.getTotalLength();
         gsap.set(p, { strokeDasharray: len, strokeDashoffset: len });
       });
+      gsap.set(".motif-node", { scale: 0, transformOrigin: "center" });
 
-      const tl = gsap.timeline({
-        defaults: { ease: "power2.out" },
-        delay: 0.6,
-      });
+      const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
       tl.to(".motif-path", {
         strokeDashoffset: 0,
         duration: 0.9,
         stagger: 0.12,
-      }).from(
+      }).to(
         ".motif-node",
         {
-          scale: 0,
-          transformOrigin: "center",
+          scale: 1,
           duration: 0.5,
           stagger: 0.08,
           ease: "back.out(2.2)",
@@ -69,9 +68,10 @@ export function RoadmapMotif() {
         yoyo: true,
         repeat: -1,
         stagger: { each: 0.3, from: "random" },
+        delay: 1.4,
       });
     },
-    { scope: ref }
+    { scope: ref, dependencies: [replay] }
   );
 
   return (

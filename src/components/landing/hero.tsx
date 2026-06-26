@@ -7,16 +7,16 @@ import { useGSAP } from "@gsap/react";
 import { Button } from "@/components/ui/button";
 import { RoadmapMotif } from "./roadmap-motif";
 import { NetworkWeb } from "./network-web";
+import { useAppSelector } from "@/store/hooks";
 
 export function Hero() {
   const root = useRef<HTMLElement>(null);
+  const appReady = useAppSelector((s) => s.ui.appReady);
 
   useGSAP(
     () => {
-      const tl = gsap.timeline({
-        defaults: { ease: "power3.out" },
-        delay: 0.2,
-      });
+      if (!appReady) return; // wait until the preloader has lifted
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
       tl.from(".hero-eyebrow", { y: 16, autoAlpha: 0, duration: 0.6 })
         .from(
           ".hero-line",
@@ -36,7 +36,7 @@ export function Hero() {
           "-=0.4"
         );
     },
-    { scope: root }
+    { scope: root, dependencies: [appReady] }
   );
 
   return (
@@ -115,7 +115,7 @@ export function Hero() {
 
         <div className="flex justify-center">
           <div className="sb-border sb-shadow-lg bg-cream/65 w-full max-w-md rounded-3xl p-4 backdrop-blur-md sm:max-w-2xl sm:p-8">
-            <RoadmapMotif />
+            <RoadmapMotif replay={appReady} />
           </div>
         </div>
       </div>
